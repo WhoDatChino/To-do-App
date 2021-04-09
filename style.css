@@ -6,12 +6,21 @@
 button:focus {
   outline: none;
 }
+button:hover {
+  cursor: pointer;
+}
 
 body {
   height: 100vh;
   width: 100%;
   background-color: aqua;
   /* position: relative; */
+}
+
+ul {
+  list-style: none;
+  /* display: flex;
+  justify-content: space-between; */
 }
 
 /* HELP BUTTON */
@@ -57,8 +66,12 @@ body {
 
 /* CONTAINER */
 .container {
-  height: 80vh;
-  width: 60%;
+  height: 90vh;
+  width: 85%;
+  /* min-width: 70rem */
+  /* max-width: 120rem;
+  min-height: 117rem;
+  margin: 4vw auto; */
   background-color: beige;
   align-items: center;
   align-content: center;
@@ -200,6 +213,50 @@ body {
 .list-view-expanded .list-items {
   flex: 8;
   background-color: indianred;
+  overflow-y: scroll;
+  align-items: center;
+}
+
+/* List Items */
+.list-items .list-item {
+  min-height: 4rem;
+  width: 95%;
+  background-color: mediumspringgreen;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  font-size: 2.5rem;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.list-item .item-info {
+  flex: 3;
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  /* background-color: blue; */
+}
+.item-info h2 {
+  margin-left: 1.5rem;
+  font-size: 2.3rem;
+}
+.item-info .task-completion {
+  margin-left: 1.5rem;
+}
+
+.list-item .item-interactions {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: blue; */
+}
+.item-interactions .expand-item {
+  margin: 0 2rem;
+}
+.item-interactions .delete-item {
+  margin-right: 1.5rem;
 }
 
 /* List options */
@@ -229,6 +286,7 @@ body {
 .list-colour-btn {
   background-color: green;
 }
+
 .list-options div {
   display: flex;
   flex-direction: column;
