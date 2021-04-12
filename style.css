@@ -13,7 +13,7 @@ button:hover {
 body {
   height: 100vh;
   width: 100%;
-  background-color: aqua;
+  /* background-image: linear-gradient(to bottom right, #c9cdd1, #6930c3); */
   /* position: relative; */
 }
 
@@ -233,17 +233,73 @@ ul {
 
 .list-item .item-info {
   flex: 3;
-  align-items: center;
-  display: flex;
+  position: relative;
+  /* align-items: center; */
+  /* display: flex;
   justify-content: flex-start;
-  /* background-color: blue; */
+  background-color: blue; */
 }
+.list-item .item-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 2.5rem;
+  margin: 0 1.5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* To create a custom checkbox, you need to hide the original default checkbox and use the label element to create the custom box that will be used in your click event */
+/* Label element is an in-line element. To give it a width & height you need to transform to inline block or block level */
+.checkmark {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: gainsboro;
+  border: 1px solid #08bb68;
+  position: relative;
+  transition: background-color 0.3s;
+}
+/* For click event, use pseudo class checked whhich allows the application of styles when a checkbox is checked */
+/* selecting id of check and the psuedo class we want. To select <label> use a css combinator called general sibling selector '~'. then need the class name of checkmark */
+#check:checked ~ .checkmark {
+  background-color: #08bb68;
+  border: none;
+}
+
+/* Checkmark sign created using ::after */
+.checkmark::after {
+  content: "";
+  position: absolute; /* parent needs to be positioned relatively for this to work*/
+  width: 0.35rem;
+  height: 0.7rem;
+  border-right: oldlace 2px solid;
+  border-bottom: oldlace 2px solid;
+  /* Positioning the checkmark */
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateZ(45deg);
+  opacity: 0;
+  transition: all 0.3s;
+}
+#check:checked ~ .checkmark::after {
+  opacity: 1;
+}
+/* Making default checkbox overlap new one cz click event wasnt registering on subsequent items. Default box then made invisible but user still interacts w/ it but sees the new one */
+.item-info input {
+  position: absolute;
+  z-index: 10;
+  width: 2.5rem;
+  height: 2.5rem;
+  opacity: 0;
+}
+
 .item-info h2 {
-  margin-left: 1.5rem;
-  font-size: 2.3rem;
-}
-.item-info .task-completion {
-  margin-left: 1.5rem;
+  font-size: 2rem;
+  margin: 0 1.5rem;
 }
 
 .list-item .item-interactions {

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-do App by Keano Bessa</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
 </head>
 
 <body>
@@ -84,15 +85,20 @@
                         <h1>List 1 Title</h1>
                     </div>
 
+                    <!-- REMOVE PRETTY BUTTONS LINK -->
 
                     <div class="list-items">
 
-                        <div class="list-item high_pri">
-
+                        <!-- NO PRIORITY -->
+                        <div class="list-item no_pri">
                             <div class="item-info">
-                                <ion-icon class="task-completion" name="ellipse-outline"></ion-icon>
 
-                                <h2>Item heading</h2>
+                                <!-- Default check box is hidden -->
+                                <input type="checkbox" name="check1" id="check">
+                                <!-- label element will be the actual checkbox that the user will see and click -->
+                                <label for="check" class="checkmark"></label>
+                                <h2>NO PRIORITY</h2>
+
                             </div>
 
                             <div class="item-interactions">
@@ -101,17 +107,28 @@
                                 <ion-icon class="delete-item" name="trash-outline"></ion-icon>
                             </div>
 
+                        </div>
 
+                        <!-- HIGH PRIORITY -->
+                        <div class="list-item hi_pri">
+                            <div class="item-info">
 
+                                <!-- Default check box is hidden -->
+                                <input type="checkbox" name="check2" id="check">
+                                <!-- label element will be the actual checkbox that the user will see and click -->
+                                <label for="check" class="checkmark"></label>
+                                <h2>HIGH PRIORITY</h2>
+
+                            </div>
+
+                            <div class="item-interactions">
+                                <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+
+                                <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+                            </div>
 
                         </div>
 
-
-                        <div class="list-item medium_pri"></div>
-                        <div class="list-item low_pri"></div>
-                        <div class="list-item low_pri expanded"></div>
-                        <div class="list-item no_pri"></div>
-                        <div class="list-item low_pri completed"></div>
                     </div>
 
                     <div class="list-options">
@@ -171,3 +188,26 @@
     left: auto;
     color: black;
   } -->
+
+
+<!-- List items: -->
+
+<!-- <div class="list-item no_pri">
+    <div class="item-info">
+
+        <div class="pretty p-default p-round p-fill">
+            <input type="checkbox" />
+            <div class="state p-primary-o">
+                <label>NO PRIORITY</label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="item-interactions">
+        <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+
+        <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+    </div>
+
+</div> -->
