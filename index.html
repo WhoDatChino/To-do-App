@@ -89,14 +89,14 @@
 
                     <div class="list-items">
 
-                        <!-- NO PRIORITY -->
-                        <div class="list-item no_pri">
+                        <!-- NO PRIORITY (default) -->
+                        <div class="list-item">
                             <div class="item-info">
 
                                 <!-- Default check box is hidden -->
-                                <input type="checkbox" name="check1" id="check">
+                                <input type="checkbox" name="check1" class="check">
                                 <!-- label element will be the actual checkbox that the user will see and click -->
-                                <label for="check" class="checkmark"></label>
+                                <label for="checkbox" class="checkmark"></label>
                                 <h2>NO PRIORITY</h2>
 
                             </div>
@@ -110,13 +110,12 @@
                         </div>
 
                         <!-- HIGH PRIORITY -->
-                        <div class="list-item hi_pri">
+                        <div class="list-item high_pri">
                             <div class="item-info">
 
-                                <!-- Default check box is hidden -->
-                                <input type="checkbox" name="check2" id="check">
-                                <!-- label element will be the actual checkbox that the user will see and click -->
-                                <label for="check" class="checkmark"></label>
+
+                                <input type="checkbox" name="" class="check">
+                                <label for="checkbox" class="checkmark"></label>
                                 <h2>HIGH PRIORITY</h2>
 
                             </div>
@@ -129,7 +128,81 @@
 
                         </div>
 
+                        <!-- MEDIUM PRIORITY -->
+                        <div class="list-item medium_pri">
+                            <div class="item-info">
+
+                                <input type="checkbox" name="" class="check">
+                                <label for="checkbox" class="checkmark"></label>
+                                <h2>MEDIUM PRIORITY</h2>
+
+                            </div>
+
+                            <div class="item-interactions">
+                                <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+
+                                <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+                            </div>
+
+                        </div>
+
+                        <!-- LOW PRIORITY -->
+                        <div class="list-item low_pri">
+                            <div class="item-info">
+
+                                <input type="checkbox" name="" class="check">
+                                <label for="checkbox" class="checkmark"></label>
+                                <h2>LOW PRIORITY</h2>
+
+                            </div>
+
+                            <div class="item-interactions">
+                                <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+
+                                <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+                            </div>
+
+                        </div>
+
+                        <!-- LOW PRIORITY EXPANDED -->
+                        <div class="list-item low_pri expanded">
+                            <div class="item-info">
+
+                                <input type="checkbox" name="" class="check">
+                                <label for="checkbox" class="checkmark"></label>
+                                <h2>LOW PRIORITY EX</h2>
+
+                            </div>
+
+                            <div class="item-interactions">
+                                <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+
+                                <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+                            </div>
+
+                        </div>
+
+                        <!-- COMPLETED PRIORITY -->
+                        <div class="list-item completed">
+                            <div class="item-info">
+
+                                <input type="checkbox" name="" class="check">
+                                <label for="checkbox" class="checkmark"></label>
+                                <h2>COMPLETED PRIORITY</h2>
+
+                            </div>
+
+                            <div class="item-interactions">
+                                <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+
+                                <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+                            </div>
+
+                        </div>
+
                     </div>
+
+
 
                     <div class="list-options">
 
