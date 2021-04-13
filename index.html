@@ -6,8 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-do App by Keano Bessa</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+
 </head>
 
 <body>
@@ -71,18 +73,19 @@
 
             <div class="list-view">
 
-                <!-- <div class="add-new-list">
+                <div class="add-new-list hidden">
                     <button class="new-list-btn">
                         <ion-icon name="add-outline"></ion-icon>
                     </button>
                     <h2>Add a new list</h2>
-                </div> -->
+                </div>
 
-                <div class="list-view-expanded">
+                <div class="list-view-expanded ">
                     <div class="colour-line"></div>
 
                     <div class="list-title">
                         <h1>List 1 Title</h1>
+                        <div class="line1"></div>
                     </div>
 
                     <!-- REMOVE PRETTY BUTTONS LINK -->
@@ -186,7 +189,7 @@
                                 <div class="item-info">
                                     <input type="checkbox" name="" class="check">
                                     <label for="checkbox" class="checkmark"></label>
-                                    <h2>LOW PRIORITY EX</h2>
+                                    <h2>LOW PRIORITY EX hello</h2>
                                 </div>
 
                                 <div class="item-interactions">
@@ -223,6 +226,50 @@
                                     <input type="checkbox" name="" class="check">
                                     <label for="checkbox" class="checkmark"></label>
                                     <h2>COMPLETED PRIORITY</h2>
+                                </div>
+
+                                <div class="item-interactions">
+                                    <button class="expand-item-btn">
+                                        <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+                                    </button>
+                                    <button class="delete-item-btn">
+                                        <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="full-list-item">
+
+                            <div class="list-item completed">
+
+                                <div class="item-info">
+                                    <input type="checkbox" name="" class="check">
+                                    <label for="checkbox" class="checkmark"></label>
+                                    <h2>COMPLETED PRIORITY</h2>
+                                </div>
+
+                                <div class="item-interactions">
+                                    <button class="expand-item-btn">
+                                        <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+                                    </button>
+                                    <button class="delete-item-btn">
+                                        <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="full-list-item">
+
+                            <div class="list-item high_pri completed">
+
+                                <div class="item-info">
+                                    <input type="checkbox" name="" class="check">
+                                    <label for="checkbox" class="checkmark"></label>
+                                    <h2>COMPLETED HIGH PRIORITY</h2>
                                 </div>
 
                                 <div class="item-interactions">
