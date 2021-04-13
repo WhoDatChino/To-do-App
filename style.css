@@ -91,11 +91,12 @@ body {
     rgba(255, 255, 255, 0.548),
     rgba(255, 255, 255, 0.212)
   ); */
-  height: 100%;
+  height: 90%;
   color: rgb(109, 109, 109);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   border-radius: 0 20px 20px 0;
 }
 
@@ -111,6 +112,7 @@ body {
   flex-direction: column;
   /* justify-content: space-between; */
   overflow-y: auto;
+  /* margin-top: 1.2rem; */
 }
 
 /* List element */
@@ -144,16 +146,46 @@ body {
   font-size: 2rem;
 }
 
-.no-lists ion-icon {
-  font-size: 4rem;
-  margin-right: 1rem;
-}
-
 .list-element .colour-line {
   height: 100%;
   width: 0.75rem;
   background-color: green;
   /* border-right: black 3px solid; */
+}
+
+/* New list button */
+.add-new-list {
+  max-width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.add-new-list .new-list-btn ion-icon {
+  font-size: 90px;
+  color: #683881;
+  transition: all 250ms ease-out;
+}
+.new-list-btn :hover {
+  transform: scale(1.17);
+  /* transform: rotate(270deg); */
+}
+.add-new-list .new-list-btn {
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0);
+  border: solid rgba(104, 102, 102) 5px;
+}
+.add-new-list h2 {
+  margin-top: 0.6rem;
+}
+
+/* Empty list */
+.no-lists ion-icon {
+  font-size: 4rem;
+  margin-right: 1rem;
+  color: #683881;
 }
 
 /* RIGHT SIDE */
@@ -179,28 +211,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.add-new-list {
-  max-width: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-/* New list button */
-.add-new-list .new-list-btn ion-icon {
-  font-size: 104px;
-  color: rgb(13, 144, 1);
-}
-.add-new-list .new-list-btn {
-  border-radius: 50%;
-  background-color: rgba(128, 128, 128, 0);
-  border: solid rgba(104, 102, 102) 5px;
-}
-.add-new-list h2 {
-  margin-top: 1rem;
 }
 
 /* LIST-VIEW-EXPANDED */
@@ -434,7 +444,8 @@ body {
   transform: rotate(180deg);
   color: rgb(112, 111, 111);
 }
-.delete-item-btn:hover {
+.delete-item-btn:hover,
+.delete-list-btn:hover {
   color: rgb(149, 48, 48);
 }
 
@@ -451,18 +462,27 @@ body {
   border-radius: 50%;
   height: 4.5rem;
   width: 4.5rem;
-  border: black 2px solid;
+  border: solid rgba(104, 102, 102) 2px;
   align-content: center;
+  background-color: #67388100;
 }
 
 .delete-list-btn ion-icon {
   font-size: 3rem;
-}
-.add-item-btn ion-icon {
-  font-size: 4.3rem;
+  transition: all 250ms ease-out;
 }
 
-.list-colour-btn {
+.add-item-btn ion-icon {
+  font-size: 4.3rem;
+  color: #683881;
+  transition: all 250ms ease-out;
+  /* transform: translate(); */
+}
+.add-item-btn :hover {
+  transform: scale(1.17);
+}
+
+.list-options .list-colour-btn {
   background-color: green;
 }
 
@@ -471,4 +491,8 @@ body {
   flex-direction: column;
   /* background-color: hotpink; */
   align-items: center;
+}
+
+.list-options h2 {
+  margin-top: 0.5rem;
 }
