@@ -296,6 +296,7 @@ ul {
   width: 2.5rem;
   height: 2.5rem;
   opacity: 0;
+  cursor: pointer;
 }
 
 /* Checkbox styling: */
@@ -372,14 +373,24 @@ ul {
 }
 .expand-item-btn,
 .delete-item-btn {
-  background-color: rgba(222, 184, 135, 0.74);
+  background-color: rgba(222, 184, 135, 0);
   border-color: rgba(95, 158, 160, 0);
+  /* border-radius: 10px 10px 20px 20px; */
   margin: 0 1rem;
   padding: 0 1rem;
+  transition: all 250ms ease-out;
 }
 .item-interactions .expand-item,
 .delete-item {
   font-size: 3rem;
+}
+/* button animation */
+.expand-item-btn:hover {
+  /* transform: rotate(180deg); */
+  color: rgb(112, 111, 111);
+}
+.delete-item-btn:hover {
+  color: rgb(149, 48, 48);
 }
 
 /* List options */
