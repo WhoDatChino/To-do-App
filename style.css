@@ -329,17 +329,57 @@ ul {
   margin: 0 1.5rem;
 }
 
+/* Expanded item */
+.full-list-item {
+  /* background-color: burlywood; */
+  position: relative;
+}
+
+.full-list-item .list-item {
+  margin-bottom: 0;
+}
+
+.full-list-item .list-additional-info {
+  height: auto;
+  width: 75%;
+  margin: 0 0 2rem 50%;
+  background-color: rgb(85, 85, 197);
+  border-radius: 0 0 15px 15px;
+  left: 50%;
+  transform: translate(-50%);
+}
+.list-additional-info :first-child {
+  padding-top: 1rem;
+}
+.extra-info {
+  padding-bottom: 1rem;
+  margin: 0 1rem 0 1rem;
+}
+.extra-info span {
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Item interactions */
 .list-item .item-interactions {
   flex: 1;
   display: flex;
   justify-content: space-between;
-  /* background-color: blue; */
 }
-.item-interactions .expand-item {
-  margin: 0 2rem;
+.expand-item-btn,
+.delete-item-btn {
+  background-color: rgba(222, 184, 135, 0.74);
+  border-color: rgba(95, 158, 160, 0);
+  margin: 0 1rem;
+  padding: 0 1rem;
 }
-.item-interactions .delete-item {
-  margin-right: 1.5rem;
+.item-interactions .expand-item,
+.delete-item {
+  font-size: 3rem;
 }
 
 /* List options */
