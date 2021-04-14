@@ -414,6 +414,37 @@
 
     </div>
 
+    <div class="overlay "></div>
+
+    <div class="form-container">
+
+        <form class="new-list-item-form">
+            <label for="task-name">Task Name:</label>
+            <input type="text" name="task-name" id="">
+            <label for="date">Due Date:</label>
+            <input type="date" name="date" id="">
+            <label for="time">Time Due:</label>
+            <input type="time" name="time" id="">
+            <label for="description">Description:</label>
+            <textarea name="" id="description" cols="30" rows="10"></textarea>
+            <label for="priority">Priority:</label>
+            <input list="priority">
+            <datalist id="priority">
+                <option value="No Priority"></option>
+                <option value="Low Priority"></option>
+                <option value="Medium Priority"></option>
+                <option value="High Priority"></option>
+            </datalist>
+            <div class="action-btn">
+                <input type="submit" value="Add">
+                <button></button>
+            </div>
+
+        </form>
+
+        <!-- <button></button> -->
+    </div>
+
 </body>
 
 <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
