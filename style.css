@@ -149,7 +149,7 @@ body {
 .list-element .colour-line {
   height: 100%;
   width: 0.75rem;
-  background-color: green;
+  background-color: #5d6d7e;
   /* border-right: black 3px solid; */
 }
 
@@ -229,7 +229,7 @@ body {
 .list-view-expanded .colour-line {
   width: 100%;
   height: 3%;
-  background-color: green;
+  background-color: #5d6d7e;
   border-bottom: rgba(104, 102, 102) solid 3px;
 }
 
@@ -237,15 +237,17 @@ body {
 .list-view-expanded .list-title {
   flex: 1.5;
   /* background-color: cadetblue; */
-  max-height: 8rem;
+  min-height: 8rem;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  border-bottom: rgb(104, 102, 102) 3px solid;
 }
 .list-title h1 {
   margin: 1rem 1rem 0 1rem;
   font-size: 5rem;
   /* text-decoration: underline; */
-  border-bottom: rgb(104, 102, 102) 3px solid;
+  /* border-bottom: rgb(104, 102, 102) 3px solid; */
   padding: 0;
 }
 /* .line1 {
@@ -303,8 +305,8 @@ body {
 /* To create a custom checkbox, you need to hide the original default checkbox and use the label element to create the custom box that will be used in your click event */
 /* Label element is an in-line element. To give it a width & height you need to transform to inline block or block level */
 .checkmark {
-  display: block;
-  width: 2.5rem;
+  /* display: block; */
+  min-width: 2.5rem;
   height: 2.5rem;
   box-sizing: border-box;
   border-radius: 50%;
@@ -416,10 +418,6 @@ body {
   font-size: 1.05rem;
 }
 
-.hidden {
-  display: none;
-}
-
 /* Item interactions */
 .list-item .item-interactions {
   flex: 1;
@@ -441,7 +439,7 @@ body {
 }
 /* button animation */
 .expand-item-btn:hover {
-  transform: rotate(180deg);
+  /* transform: rotate(180deg); */
   color: rgb(112, 111, 111);
 }
 .delete-item-btn:hover,
@@ -465,6 +463,7 @@ body {
   border: solid rgba(104, 102, 102) 2px;
   align-content: center;
   background-color: #67388100;
+  position: relative;
 }
 
 .delete-list-btn ion-icon {
@@ -495,4 +494,104 @@ body {
 
 .list-options h2 {
   margin-top: 0.5rem;
+}
+
+.list-options .list-colour-options {
+  position: absolute;
+  height: 20rem;
+  width: 20rem;
+  /* background-color: #683881; */
+  z-index: 20;
+  border-radius: 20px;
+  background-image: linear-gradient(
+    to right bottom,
+    rgb(255, 255, 255),
+    rgb(223, 222, 222)
+  );
+  box-shadow: 6px 6px 20px rgba(128, 128, 128, 0.239);
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-auto-rows: 2.7rem; */
+  transform: translateY(-110%);
+}
+.list-colour-options .list-colour-btn {
+  margin: auto auto;
+  height: 4rem;
+  width: 4rem;
+  background-color: teal;
+  transition: all 200ms ease-in-out;
+  border: none;
+}
+
+.list-colour-options.hidden {
+  display: none;
+}
+
+.list-colour-options .list-colour-btn.colour-option-A {
+  background-color: #33ff86;
+}
+.list-colour-options .list-colour-btn.colour-option-A:hover {
+  box-shadow: 2px 2px 20px #33ff86;
+  border: rgba(0, 128, 0, 0);
+}
+.list-colour-options .list-colour-btn.colour-option-B {
+  background-color: #0f92b6;
+}
+.list-colour-options .list-colour-btn.colour-option-B:hover {
+  box-shadow: 2px 2px 20px #0f92b6;
+  border: rgba(0, 128, 0, 0);
+}
+.list-colour-options .list-colour-btn.colour-option-C {
+  background-color: green;
+}
+.list-colour-options .list-colour-btn.colour-option-C:hover {
+  box-shadow: 2px 2px 20px green;
+  border: rgba(0, 128, 0, 0);
+}
+.list-colour-options .list-colour-btn.colour-option-D {
+  background-color: #ee53f8;
+}
+.list-colour-options .list-colour-btn.colour-option-D:hover {
+  box-shadow: 2px 2px 20px #ee53f8;
+  border: rgba(0, 128, 0, 0);
+}
+.list-colour-options .list-colour-btn.colour-option-E {
+  background-color: #ff5733;
+}
+.list-colour-options .list-colour-btn.colour-option-E:hover {
+  box-shadow: 2px 2px 20px #ff5733;
+  border: rgba(0, 128, 0, 0);
+}
+.list-colour-options .list-colour-btn.colour-option-F {
+  background-color: #c70039;
+}
+.list-colour-options .list-colour-btn.colour-option-F:hover {
+  box-shadow: 2px 2px 20px #c70039;
+  border: rgba(0, 128, 0, 0);
+}
+.list-colour-options .list-colour-btn.colour-option-G {
+  background-color: #ffc300;
+}
+.list-colour-options .list-colour-btn.colour-option-G:hover {
+  box-shadow: 2px 2px 20px #ffc300;
+  border: rgba(0, 128, 0, 0);
+}
+.list-colour-options .list-colour-btn.colour-option-H {
+  background-color: #8b4aad;
+}
+.list-colour-options .list-colour-btn.colour-option-H:hover {
+  box-shadow: 2px 2px 20px #8b4aad;
+  border: rgba(35, 49, 35, 0);
+}
+.list-colour-options .list-colour-btn.colour-option-I {
+  background-color: #5d6d7e;
+}
+.list-colour-options .list-colour-btn.colour-option-I:hover {
+  box-shadow: 2px 2px 20px #5d6d7e;
+  border: rgba(0, 128, 0, 0);
+}
+
+.hidden {
+  display: none;
 }
