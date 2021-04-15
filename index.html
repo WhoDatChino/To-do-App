@@ -83,8 +83,21 @@
                     <div class="colour-line"></div>
 
                     <div class="list-title">
-                        <h1>List 1 Title TITLE</h1>
-                        <div class="line1"></div>
+
+                        <div class="form hidden">
+                            <form class="change-list-title-form">
+                                <input class="input-list-title" type="text" maxlength="20"
+                                    placeholder="(max 20 characters)" name="list-title">
+                                <input class="input-list-title-btn" type="submit" value="Done">
+                            </form>
+                        </div>
+
+                        <div class="no-form ">
+                            <h1>LIST 1 TITLE TITLE TITle</h1>
+                            <button>
+                                <ion-icon name="create-outline"></ion-icon>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="list-items ">
@@ -383,10 +396,10 @@
                                 <button class="list-colour-btn colour-option-B" data-colour="#0f92b6"></button>
                                 <button class="list-colour-btn colour-option-C" data-colour="#008000"></button>
                                 <button class="list-colour-btn colour-option-D" data-colour="#ee53f8"></button>
-                                <button class="list-colour-btn colour-option-E" data-colour="#ff5733"></button>
+                                <button class="list-colour-btn colour-option-E" data-colour="#8b4aad"></button>
                                 <button class="list-colour-btn colour-option-F" data-colour="#c70039"></button>
                                 <button class="list-colour-btn colour-option-G" data-colour="#ffc300"></button>
-                                <button class="list-colour-btn colour-option-H" data-colour="#8b4aad"></button>
+                                <button class="list-colour-btn colour-option-H" data-colour="#ff5733"></button>
                                 <button class="list-colour-btn colour-option-I" data-colour="#5d6d7e"></button>
                             </div>
                         </div>
@@ -450,6 +463,17 @@
     <div class="success-message hidden">
         <ion-icon name="checkmark-done-outline"></ion-icon>
         <h2>Item successfully added to list!</h2>
+    </div>
+
+    <div class="delete-list-message hidden">
+        <div class="content">
+            <ion-icon name="warning-outline"></ion-icon>
+            <h2>Are you sure you want to delete this list?</h2>
+        </div>
+        <div class="delete-list-btns">
+            <button class="delete-btn">Yes, delete</button>
+            <button class="cancel-btn">No, cancel</button>
+        </div>
     </div>
 
 </body>
