@@ -414,35 +414,42 @@
 
     </div>
 
-    <div class="overlay "></div>
+    <div class="overlay hidden"></div>
 
-    <div class="form-container">
+    <div class="form-container hidden">
 
         <form class="new-list-item-form">
-            <label for="task-name">Task Name:</label>
-            <input type="text" name="task-name" id="">
+            <label for="item-name">Item Name:</label>
+            <input type="text" name="item-name" placeholder="Required (max 20 characters)" maxlength="20" id="">
             <label for="date">Due Date:</label>
             <input type="date" name="date" id="">
             <label for="time">Time Due:</label>
             <input type="time" name="time" id="">
             <label for="description">Description:</label>
-            <textarea name="" id="description" cols="30" rows="10"></textarea>
+            <textarea name="" id="description" cols="30" rows="5" maxlength="150"
+                placeholder="(max 150 characters)"></textarea>
             <label for="priority">Priority:</label>
-            <input list="priority">
+            <input list="priority" placeholder="No priority default">
             <datalist id="priority">
-                <option value="No Priority"></option>
+                <option value="No Priority" default></option>
                 <option value="Low Priority"></option>
                 <option value="Medium Priority"></option>
                 <option value="High Priority"></option>
             </datalist>
-            <div class="action-btn">
-                <input type="submit" value="Add">
-                <button></button>
+
+            <div class="action-btns">
+                <button class="add-btn">Add</button>
+                <button class="cancel-btn">Cancel</button>
             </div>
 
         </form>
 
         <!-- <button></button> -->
+    </div>
+
+    <div class="success-message hidden">
+        <ion-icon name="checkmark-done-outline"></ion-icon>
+        <h2>Item successfully added to list!</h2>
     </div>
 
 </body>

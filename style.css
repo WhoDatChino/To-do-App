@@ -638,7 +638,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 45rem;
-  height: 35rem;
+  height: 40rem;
   /* background-color: rgba(253, 253, 253, 0);
   box-shadow: 6px 6px 20px rgba(128, 128, 128, 0.239); */
 }
@@ -646,5 +646,73 @@ body {
 .new-list-item-form label {
   font-size: 1.5rem;
   font-weight: bold;
-  color: rgb(77, 77, 77);
+  color: rgb(116, 115, 115);
+}
+.new-list-item-form input,
+textarea {
+  font-size: 1.5rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.new-list-item-form .action-btns {
+  grid-column: 1 / span 2;
+  justify-self: center;
+  margin-top: 1rem;
+  /* background-color: purple; */
+}
+.action-btns .add-btn,
+.cancel-btn {
+  width: 10rem;
+  height: 3rem;
+  align-items: center;
+  margin: 1rem;
+  font-size: 2rem;
+  border-radius: 1.5rem;
+  color: rgb(255, 255, 255);
+  transition: all 250ms ease-in-out;
+}
+.add-btn {
+  background-image: linear-gradient(to top right, #683881, #0f92b6);
+  border: none;
+}
+.add-btn:hover {
+  box-shadow: 2px 2px 20px #0f92b6;
+  transform: scale(1.05);
+}
+.cancel-btn {
+  color: rgb(116, 115, 115);
+  border: none;
+}
+.cancel-btn:hover {
+  box-shadow: 2px 2px 20px rgb(149, 48, 48);
+}
+
+.success-message {
+  width: 20rem;
+  height: 10rem;
+  /* margin: auto; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  color: white;
+  background-color: #683881;
+  border-radius: 15px;
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px;
+  align-items: center;
+  box-shadow: 2px 2px 30px #683881;
+}
+
+.success-message ion-icon {
+  font-size: 4rem;
+  margin: 0 1rem 0 1rem;
+}
+.success-message.hidden {
+  display: none;
 }
