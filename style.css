@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+:root {
+  --grey-outline-color: rgba(104, 102, 102);
+}
+
 button:focus {
   outline: none;
 }
@@ -14,7 +18,6 @@ body {
   height: 100vh;
   width: 100%;
   background-image: linear-gradient(to top right, #683881, #0f92b6, #00c9b7);
-  /* position: relative; */
   font-family: "Montserrat", sans-serif;
 }
 
@@ -63,11 +66,6 @@ body {
 .container {
   height: 90vh;
   width: 85%;
-  /* min-width: 70rem */
-  /* max-width: 120rem;
-  min-height: 117rem;
-  margin: 4vw auto; */
-  /* background-color: white; */
   background-image: linear-gradient(
     to bottom left,
     rgba(255, 255, 255, 0.7),
@@ -75,7 +73,6 @@ body {
   );
   filter: drop-shadow(0 0 0.8rem rgb(51, 50, 50));
   align-items: center;
-  align-content: center;
   margin: 6rem auto 1rem auto;
   display: flex;
   border-radius: 20px;
@@ -85,17 +82,10 @@ body {
 /* LEFT SIDE */
 .lists-column {
   flex: 3;
-  /* background-color: rgba(179, 179, 179, 0.657); */
-  /* background-image: linear-gradient(
-    to bottom right,
-    rgba(255, 255, 255, 0.548),
-    rgba(255, 255, 255, 0.212)
-  ); */
   height: 90%;
   color: rgb(109, 109, 109);
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   border-radius: 0 20px 20px 0;
 }
@@ -103,32 +93,27 @@ body {
 .lists-column .list-previews {
   height: 90%;
   width: 80%;
-  /* background-color: tomato; */
 }
 
 .list-previews {
   display: flex;
   align-items: center;
   flex-direction: column;
-  /* justify-content: space-between; */
-  overflow-y: auto;
-  /* margin-top: 1.2rem; */
+  overflow-y: scroll;
 }
 
 /* List element */
 .lists-column .list-element {
   min-height: 8rem;
   width: 100%;
-  /* background-color: rgba(235, 234, 236, 0.767); */
   background-image: linear-gradient(
     to left top,
-    rgba(255, 255, 255, 0.856),
+    rgba(255, 255, 255, 0.911),
     rgba(255, 255, 255, 0.247)
   );
   box-shadow: 6px 6px 20px rgba(128, 128, 128, 0.239);
   margin: 1.3rem 0;
   box-sizing: border-box;
-  /* border: black 3px solid; */
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -138,7 +123,6 @@ body {
 
 .list-previews :first-child {
   margin-top: 0;
-  /* background-color: chartreuse; */
 }
 
 .list-element h2 {
@@ -150,7 +134,6 @@ body {
   height: 100%;
   width: 0.75rem;
   background-color: #5d6d7e;
-  /* border-right: black 3px solid; */
 }
 
 /* New list button */
@@ -158,7 +141,6 @@ body {
   max-width: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   margin-top: 1rem;
 }
@@ -170,7 +152,6 @@ body {
 }
 .new-list-btn :hover {
   transform: scale(1.17);
-  /* transform: rotate(270deg); */
 }
 .add-new-list .new-list-btn {
   border-radius: 50%;
@@ -191,7 +172,6 @@ body {
 /* RIGHT SIDE */
 .list-container {
   flex: 5;
-  /* background-color: greenyellow; */
   background-image: linear-gradient(
     to bottom left,
     rgba(255, 255, 255, 0.719),
@@ -207,7 +187,6 @@ body {
 .list-container .list-view {
   height: 90%;
   width: 87%;
-  /* background-color: tomato; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,7 +196,6 @@ body {
 .list-view-expanded {
   width: 99%;
   height: 99%;
-  /* background-color: violet; */
   border-radius: 20px;
   overflow: hidden;
   border: solid 3px rgba(104, 102, 102);
@@ -237,43 +215,36 @@ body {
 .list-view-expanded .list-title {
   flex: 1.5;
   min-height: 7rem;
-  /* overflow-x: scroll; */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: violet; */
   border-bottom: rgb(104, 102, 102) 3px solid;
   position: relative;
 }
+
 /* list Title - no form */
 .no-form {
   width: 100%;
   max-height: 80%;
-  /* box-sizing: content-box; */
   padding: 10px;
-  /* margin: 0.5rem 1rem; */
   display: flex;
   align-items: center;
   overflow: hidden;
   justify-content: space-between;
-  /* background-color: forestgreen; */
 }
 .list-title h1 {
   margin: 1rem;
   font-size: 3.5rem;
-  /* background-color: fuchsia; */
 }
 .list-title button {
   height: 4rem;
   min-width: 4rem;
   border-radius: 50%;
-  /* position: relative; */
   margin-right: 1.5rem;
   margin-left: 1rem;
   margin: auto 1.5rem auto 1rem;
   border: none;
   box-shadow: 6px 6px 20px rgba(7, 7, 7, 0.239);
-  /* background-color: forestgreen; */
 }
 .list-title ion-icon {
   font-size: 2rem;
@@ -285,28 +256,16 @@ body {
   width: 100%;
   height: 90%;
   margin: 0 0.5rem;
-  /* position: relative; */
-  /* background-color: forestgreen; */
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
 }
 .change-list-title-form {
-  /* height: auto; */
-  /* width: 20rem; */
   height: 100%;
   align-items: center;
   position: relative;
   display: grid;
   grid-template-columns: 6fr 1fr;
-  /* background-color: khaki; */
   border-radius: 9px;
-  /* box-sizing: border-box; */
-  /* align-items: center; */
   gap: 1rem;
   overflow-x: scroll;
-  /* overflow-y: hidden; */
-  /* padding: 0.1rem;  */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -324,7 +283,6 @@ body {
   border-radius: 50%;
   color: white;
   font-weight: bold;
-  /* background-color: fuchsia; */
   background-image: linear-gradient(to top right, #683881, #0f92b6);
   border: none;
   cursor: pointer;
@@ -338,7 +296,6 @@ body {
 
 .list-view-expanded .list-items {
   flex: 8;
-  /* background-color: indianred; */
   overflow-y: scroll;
   align-items: center;
 }
@@ -347,17 +304,9 @@ body {
 .list-items .list-item {
   min-height: 4rem;
   width: 95%;
-  /* background-color: mediumspringgreen; */
-  /* background-image: linear-gradient(
-    to left top,
-    rgba(255, 255, 255, 0.856),
-    rgba(255, 255, 255, 0.247)
-  ); */
-  /* box-shadow: 6px 6px 20px rgba(128, 128, 128, 0.239); */
   margin: 2rem auto;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   font-size: 2.5rem;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -366,10 +315,6 @@ body {
 .list-item .item-info {
   flex: 3;
   position: relative;
-  /* align-items: center; */
-  /* display: flex;
-  justify-content: flex-start;
-  background-color: blue; */
 }
 .list-item .item-info {
   display: flex;
@@ -465,7 +410,6 @@ body {
 
 /* Expanded item */
 .full-list-item {
-  /* background-color: burlywood; */
   position: relative;
 }
 
@@ -477,7 +421,6 @@ body {
   height: auto;
   width: 75%;
   margin: 0 0 2rem 50%;
-  /* background-color: rgba(209, 209, 209, 0.418); */
   background-image: linear-gradient(
     to top,
     rgba(180, 179, 179, 0.698),
@@ -509,7 +452,6 @@ body {
 .delete-item-btn {
   background-color: rgba(222, 184, 135, 0);
   border-color: rgba(95, 158, 160, 0);
-  /* border-radius: 10px 10px 20px 20px; */
   margin: 0 1rem;
   padding: 0 1rem;
   transition: all 250ms ease-out;
@@ -531,7 +473,6 @@ body {
 /* List options */
 .list-view-expanded .list-options {
   flex: 2;
-  /* background-color: rgb(116, 117, 116); */
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -556,7 +497,6 @@ body {
   font-size: 4.3rem;
   color: #683881;
   transition: all 250ms ease-out;
-  /* transform: translate(); */
 }
 .add-item-btn :hover {
   transform: scale(1.17);
@@ -569,7 +509,6 @@ body {
 .list-options div {
   display: flex;
   flex-direction: column;
-  /* background-color: hotpink; */
   align-items: center;
 }
 
@@ -581,7 +520,6 @@ body {
   position: absolute;
   height: 20rem;
   width: 20rem;
-  /* background-color: #683881; */
   z-index: 20;
   border-radius: 20px;
   background-image: linear-gradient(
@@ -593,7 +531,6 @@ body {
   justify-content: center;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  /* grid-auto-rows: 2.7rem; */
   transform: translateY(-110%);
 }
 .list-colour-options .list-colour-btn {
@@ -720,8 +657,6 @@ body {
   transform: translate(-50%, -50%);
   width: 45rem;
   height: 40rem;
-  /* background-color: rgba(253, 253, 253, 0);
-  box-shadow: 6px 6px 20px rgba(128, 128, 128, 0.239); */
 }
 
 .new-list-item-form label {
@@ -742,8 +677,8 @@ textarea {
   grid-column: 1 / span 2;
   justify-self: center;
   margin-top: 1rem;
-  /* background-color: purple; */
 }
+
 .action-btns .add-btn,
 .cancel-btn,
 .delete-btn {
@@ -777,7 +712,6 @@ textarea {
 .success-message {
   width: 20rem;
   height: 10rem;
-  /* margin: auto; */
   position: fixed;
   top: 50%;
   left: 50%;
