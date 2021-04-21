@@ -4,7 +4,19 @@
 }
 
 :root {
-  --grey-outline-color: rgba(104, 102, 102);
+  --grey-theme: #5d6d7e;
+  --orange-theme: #ff5733;
+  --yellow-theme: #ffc300;
+  --red-theme: #c70039;
+  --purple-theme: #8b4aad;
+  --pink-theme: #ee53f8;
+  --green-theme: #008000;
+  --blue-theme: #0f92b6;
+  --bright-theme: #33ff86;
+
+  --purple-branding: #683881;
+  --blue-branding--1: #0f92b6;
+  --blue-branding--2: #00c9b7;
 }
 
 button:focus {
@@ -15,9 +27,15 @@ button:hover {
 }
 
 body {
-  height: 100vh;
-  width: 100%;
-  background-image: linear-gradient(to top right, #683881, #0f92b6, #00c9b7);
+  min-height: 100vh;
+  background-image: linear-gradient(
+    to top right,
+    var(--purple-branding),
+    var(--blue-branding--1),
+    var(--blue-branding--2)
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -64,8 +82,10 @@ body {
 
 /* CONTAINER */
 .container {
-  height: 90vh;
-  width: 85%;
+  /* height: 90vh;
+  width: 85%; */
+  max-width: 100rem;
+  height: 60rem;
   background-image: linear-gradient(
     to bottom left,
     rgba(255, 255, 255, 0.7),
@@ -133,7 +153,7 @@ body {
 .list-element .colour-line {
   height: 100%;
   width: 0.75rem;
-  background-color: #5d6d7e;
+  background-color: var(--grey-theme);
 }
 
 /* New list button */
@@ -147,7 +167,7 @@ body {
 
 .add-new-list .new-list-btn ion-icon {
   font-size: 90px;
-  color: #683881;
+  color: var(--purple-branding);
   transition: all 250ms ease-out;
 }
 .new-list-btn :hover {
@@ -166,7 +186,7 @@ body {
 .no-lists ion-icon {
   font-size: 4rem;
   margin-right: 1rem;
-  color: #683881;
+  color: var(--purple-branding);
 }
 
 /* RIGHT SIDE */
@@ -207,7 +227,7 @@ body {
 .list-view-expanded .colour-line {
   width: 100%;
   height: 3%;
-  background-color: #5d6d7e;
+  background-color: var(--grey-theme);
   border-bottom: rgba(104, 102, 102) solid 3px;
 }
 
@@ -248,7 +268,7 @@ body {
 }
 .list-title ion-icon {
   font-size: 2rem;
-  color: #683881;
+  color: var(--purple-branding);
 }
 
 /* List title - W/ form */
@@ -283,7 +303,11 @@ body {
   border-radius: 50%;
   color: white;
   font-weight: bold;
-  background-image: linear-gradient(to top right, #683881, #0f92b6);
+  background-image: linear-gradient(
+    to top right,
+    var(--purple-branding),
+    var(--blue-branding--1)
+  );
   border: none;
   cursor: pointer;
   transition: all ease-in-out 250ms;
@@ -291,7 +315,7 @@ body {
   box-shadow: 6px 6px 20px rgba(7, 7, 7, 0.239);
 }
 .input-list-title-btn:hover {
-  box-shadow: 2px 2px 13px #683881;
+  box-shadow: 2px 2px 13px var(--purple-branding);
 }
 
 .list-view-expanded .list-items {
@@ -495,7 +519,7 @@ body {
 
 .add-item-btn ion-icon {
   font-size: 4.3rem;
-  color: #683881;
+  color: var(--purple-branding);
   transition: all 250ms ease-out;
 }
 .add-item-btn :hover {
@@ -503,7 +527,7 @@ body {
 }
 
 .list-options .list-colour-btn {
-  background-color: #5d6d7e;
+  background-color: var(--grey-theme);
 }
 
 .list-options div {
@@ -537,7 +561,6 @@ body {
   margin: auto auto;
   height: 4rem;
   width: 4rem;
-  background-color: teal;
   transition: all 200ms ease-in-out;
   border: none;
 }
@@ -547,66 +570,66 @@ body {
 }
 
 .list-colour-options .list-colour-btn.colour-option-A {
-  background-color: #33ff86;
+  background-color: var(--bright-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-A:hover {
-  box-shadow: 2px 2px 20px #33ff86;
+  box-shadow: 2px 2px 20px var(--bright-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option-B {
-  background-color: #0f92b6;
+  background-color: var(--blue-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-B:hover {
-  box-shadow: 2px 2px 20px #0f92b6;
+  box-shadow: 2px 2px 20px var(--blue-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option-C {
-  background-color: green;
+  background-color: var(--green-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-C:hover {
-  box-shadow: 2px 2px 20px green;
+  box-shadow: 2px 2px 20px var(--green-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option-D {
-  background-color: #ee53f8;
+  background-color: var(--pink-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-D:hover {
-  box-shadow: 2px 2px 20px #ee53f8;
+  box-shadow: 2px 2px 20px var(--pink-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option-H {
-  background-color: #ff5733;
+  background-color: var(--orange-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-H:hover {
-  box-shadow: 2px 2px 20px #ff5733;
+  box-shadow: 2px 2px 20px var(--orange-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option-F {
-  background-color: #c70039;
+  background-color: var(--red-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-F:hover {
-  box-shadow: 2px 2px 20px #c70039;
+  box-shadow: 2px 2px 20px var(--red-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option-G {
-  background-color: #ffc300;
+  background-color: var(--yellow-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-G:hover {
-  box-shadow: 2px 2px 20px #ffc300;
+  box-shadow: 2px 2px 20px var(--yellow-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option-E {
-  background-color: #8b4aad;
+  background-color: var(--purple-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-E:hover {
-  box-shadow: 2px 2px 20px #8b4aad;
+  box-shadow: 2px 2px 20px var(--purple-theme);
   border: rgba(35, 49, 35, 0);
 }
 .list-colour-options .list-colour-btn.colour-option-I {
-  background-color: #5d6d7e;
+  background-color: var(--grey-theme);
 }
 .list-colour-options .list-colour-btn.colour-option-I:hover {
-  box-shadow: 2px 2px 20px #5d6d7e;
+  box-shadow: 2px 2px 20px var(--grey-theme);
   border: rgba(0, 128, 0, 0);
 }
 
@@ -693,12 +716,16 @@ textarea {
 }
 .add-btn,
 .delete-btn {
-  background-image: linear-gradient(to top right, #683881, #0f92b6);
+  background-image: linear-gradient(
+    to top right,
+    var(--purple-branding),
+    var(--blue-branding--1)
+  );
   border: none;
 }
 .add-btn:hover,
 .delete-btn:hover {
-  box-shadow: 2px 2px 20px #0f92b6;
+  box-shadow: 2px 2px 20px var(--blue-branding--1);
   transform: scale(1.05);
 }
 .cancel-btn {
@@ -718,13 +745,13 @@ textarea {
   transform: translate(-50%, -50%);
   z-index: 30;
   color: white;
-  background-color: #683881;
+  background-color: var(--purple-branding);
   border-radius: 15px;
   display: flex;
   box-sizing: border-box;
   padding: 10px;
   align-items: center;
-  box-shadow: 2px 2px 30px #683881;
+  box-shadow: 2px 2px 30px var(--purple-branding);
 }
 
 .success-message ion-icon,
@@ -746,12 +773,12 @@ textarea {
   transform: translate(-50%, -50%);
   z-index: 30;
   color: white;
-  background-color: #683881;
+  background-color: var(--purple-branding);
   border-radius: 15px;
   box-sizing: border-box;
   padding: 10px;
   align-items: center;
-  box-shadow: 2px 2px 30px #683881;
+  box-shadow: 2px 2px 30px var(--purple-branding);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
