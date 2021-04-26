@@ -569,66 +569,66 @@ body {
   display: none;
 }
 
-.list-colour-options .list-colour-btn.colour-option-A {
+.list-colour-options .list-colour-btn.colour-option.A {
   background-color: var(--bright-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-A:hover {
+.list-colour-options .list-colour-btn.colour-option.A:hover {
   box-shadow: 2px 2px 20px var(--bright-theme);
   border: rgba(0, 128, 0, 0);
 }
-.list-colour-options .list-colour-btn.colour-option-B {
+.list-colour-options .list-colour-btn.colour-option.B {
   background-color: var(--blue-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-B:hover {
+.list-colour-options .list-colour-btn.colour-option.B:hover {
   box-shadow: 2px 2px 20px var(--blue-theme);
   border: rgba(0, 128, 0, 0);
 }
-.list-colour-options .list-colour-btn.colour-option-C {
+.list-colour-options .list-colour-btn.colour-option.C {
   background-color: var(--green-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-C:hover {
+.list-colour-options .list-colour-btn.colour-option.C:hover {
   box-shadow: 2px 2px 20px var(--green-theme);
   border: rgba(0, 128, 0, 0);
 }
-.list-colour-options .list-colour-btn.colour-option-D {
+.list-colour-options .list-colour-btn.colour-option.D {
   background-color: var(--pink-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-D:hover {
+.list-colour-options .list-colour-btn.colour-option.D:hover {
   box-shadow: 2px 2px 20px var(--pink-theme);
   border: rgba(0, 128, 0, 0);
 }
-.list-colour-options .list-colour-btn.colour-option-H {
+.list-colour-options .list-colour-btn.colour-option.H {
   background-color: var(--orange-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-H:hover {
+.list-colour-options .list-colour-btn.colour-option.H:hover {
   box-shadow: 2px 2px 20px var(--orange-theme);
   border: rgba(0, 128, 0, 0);
 }
-.list-colour-options .list-colour-btn.colour-option-F {
+.list-colour-options .list-colour-btn.colour-option.F {
   background-color: var(--red-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-F:hover {
+.list-colour-options .list-colour-btn.colour-option.F:hover {
   box-shadow: 2px 2px 20px var(--red-theme);
   border: rgba(0, 128, 0, 0);
 }
-.list-colour-options .list-colour-btn.colour-option-G {
+.list-colour-options .list-colour-btn.colour-option.G {
   background-color: var(--yellow-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-G:hover {
+.list-colour-options .list-colour-btn.colour-option.G:hover {
   box-shadow: 2px 2px 20px var(--yellow-theme);
   border: rgba(0, 128, 0, 0);
 }
-.list-colour-options .list-colour-btn.colour-option-E {
+.list-colour-options .list-colour-btn.colour-option.E {
   background-color: var(--purple-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-E:hover {
+.list-colour-options .list-colour-btn.colour-option.E:hover {
   box-shadow: 2px 2px 20px var(--purple-theme);
   border: rgba(35, 49, 35, 0);
 }
-.list-colour-options .list-colour-btn.colour-option-I {
+.list-colour-options .list-colour-btn.colour-option.I {
   background-color: var(--grey-theme);
 }
-.list-colour-options .list-colour-btn.colour-option-I:hover {
+.list-colour-options .list-colour-btn.colour-option.I:hover {
   box-shadow: 2px 2px 20px var(--grey-theme);
   border: rgba(0, 128, 0, 0);
 }
@@ -761,7 +761,8 @@ textarea {
 }
 .success-message.hidden,
 .delete-list-message.hidden,
-.form.hidden {
+.form.hidden,
+.no-lists.hidden {
   display: none;
 }
 .delete-list-message {
