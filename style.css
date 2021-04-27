@@ -5,13 +5,13 @@
 
 :root {
   --grey-theme: #5d6d7e;
-  --orange-theme: #ff5733;
-  --yellow-theme: #ffc300;
-  --red-theme: #c70039;
-  --purple-theme: #8b4aad;
-  --pink-theme: #ee53f8;
-  --green-theme: #008000;
-  --blue-theme: #0f92b6;
+  --orange-theme: #ff7f54;
+  --yellow-theme: #fcd143;
+  --red-theme: #a73958;
+  --purple-theme: #ce89fc;
+  --pink-theme: #ff8f8b;
+  --green-theme: #3cb371;
+  --blue-theme: #00eaff;
   --bright-theme: #33ff86;
 
   --purple-branding: #683881;
@@ -551,7 +551,7 @@ body {
     rgb(255, 255, 255),
     rgb(223, 222, 222)
   );
-  box-shadow: 6px 6px 20px rgba(128, 128, 128, 0.239);
+  box-shadow: 6px 6px 20px rgba(44, 44, 44, 0.541);
   justify-content: center;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

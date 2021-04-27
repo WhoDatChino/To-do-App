@@ -5,6 +5,11 @@ const noListMessage = document.querySelector(".no-lists");
 const listPreviewsParent = document.querySelector(".list-previews");
 const listExpandedParent = document.querySelector(".list-container");
 const successMessage = document.querySelector(".success-message");
+const listColour = document.querySelector(".colour-line");
+const listOptionsContainer = document.querySelector(".list-options");
+const listColourContainer = document.querySelector(".list-colour-options");
+const formContainer = document.querySelector(".form-container");
+const overlay = document.querySelector(".overlay");
 // const listItem = document.querySelector(".list-item");
 // const listItemExtraInfo = document.querySelector(".list-additional-info");
 // const newBtn = document.getElementById("btn");
@@ -15,8 +20,7 @@ const successMessage = document.querySelector(".success-message");
 // const listPreviewElement = document.querySelector(".list-element");
 // const listPreviewElement = document.querySelector(".list-element");
 const newListBtn = document.querySelector(".new-list-btn");
-const listOptionsContainer = document.querySelector(".list-options");
-const listColourContainer = document.querySelector(".list-colour-options");
+const colourPickerBtn = document.querySelector(".list-colour-btn");
 // const l = document.getElementById(".edit-title-btn");
 // const checkboxBtn = document.querySelector(".check");
 // const expandListItemBtn = document.querySelector(".expand-item-btn");
@@ -57,14 +61,41 @@ noListMessage.addEventListener("click", hideSuccessMessage);
 // Event delegation - listener added to parent element
 listOptionsContainer.addEventListener("click", function (e) {
   const button = e.target.closest("button");
-  let buttonColour;
+  //   let buttonColour;
   //   console.log(button);
+
   if (!button) return;
+
+  //   List colour button
   if (button.classList.contains("list-colour-btn"))
     listColourContainer.classList.toggle("hidden");
 
-  if (button.classList.contains("colour-option"))
-    buttonColour = e.target.dataset.colour;
+  if (button.classList.contains("colour-option")) {
+    const buttonColour = listColourPicker(button);
+    changeColour(buttonColour);
+  }
 
-  console.log(buttonColour);
+  //   Add item button
+  if (button.classList.contains("add-item-btn")) {
+    addListItem();
+  }
 });
+
+// CHANGING LIST COLOUR
+function listColourPicker(event) {
+  return (buttonColour = event.dataset.colour);
+}
+
+function changeColour(colCode) {
+  listColour.style.backgroundColor = colCode;
+  colourPickerBtn.style.backgroundColor = colCode;
+}
+
+// ADDING ITEM
+function addListItem(e) {
+  // 1. Display overlay
+  overlay.classList.remove("hidden");
+  // 2. Display form
+  formContainer.classList.remove("hidden");
+  e.preventDefault();
+}
