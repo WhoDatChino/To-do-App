@@ -584,63 +584,72 @@ body {
   background-color: var(--bright-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.A:hover {
-  box-shadow: 2px 2px 20px var(--bright-theme);
+  box-shadow: 1px 1px 30px -8px var(--bright-theme),
+    -1px -1px 30px -8px var(--bright-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option.B {
   background-color: var(--blue-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.B:hover {
-  box-shadow: 2px 2px 20px var(--blue-theme);
+  box-shadow: 1px 1px 30px -8px var(--blue-theme),
+    -1px -1px 30px -8px var(--blue-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option.C {
   background-color: var(--green-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.C:hover {
-  box-shadow: 2px 2px 20px var(--green-theme);
+  box-shadow: 1px 1px 30px -8px var(--green-theme),
+    -1px -1px 30px -8px var(--green-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option.D {
   background-color: var(--pink-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.D:hover {
-  box-shadow: 2px 2px 20px var(--pink-theme);
+  box-shadow: 1px 1px 30px -8px var(--pink-theme),
+    -1px -1px 30px -8px var(--pink-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option.H {
   background-color: var(--orange-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.H:hover {
-  box-shadow: 2px 2px 20px var(--orange-theme);
+  box-shadow: 1px 1px 30px -8px var(--orange-theme),
+    -1px -1px 30px -8px var(--orange-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option.F {
   background-color: var(--red-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.F:hover {
-  box-shadow: 2px 2px 20px var(--red-theme);
+  box-shadow: 1px 1px 30px -8px var(--red-theme),
+    -1px -1px 30px -8px var(--red-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option.G {
   background-color: var(--yellow-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.G:hover {
-  box-shadow: 2px 2px 20px var(--yellow-theme);
+  box-shadow: 1px 1px 30px -8px var(--yellow-theme),
+    -1px -1px 30px -8px var(--yellow-theme);
   border: rgba(0, 128, 0, 0);
 }
 .list-colour-options .list-colour-btn.colour-option.E {
   background-color: var(--purple-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.E:hover {
-  box-shadow: 2px 2px 20px var(--purple-theme);
+  box-shadow: 1px 1px 30px -8px var(--purple-theme),
+    -1px -1px 30px -8px var(--purple-theme);
   border: rgba(35, 49, 35, 0);
 }
 .list-colour-options .list-colour-btn.colour-option.I {
   background-color: var(--grey-theme);
 }
 .list-colour-options .list-colour-btn.colour-option.I:hover {
-  box-shadow: 2px 2px 20px var(--grey-theme);
+  box-shadow: 1px 1px 30px -8px var(--grey-theme),
+    -1px -1px 30px -8px var(--grey-theme);
   border: rgba(0, 128, 0, 0);
 }
 

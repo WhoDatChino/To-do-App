@@ -13,21 +13,9 @@ const listColourContainer = document.querySelector(".list-colour-options");
 const formContainer = document.querySelector(".form-container");
 const overlay = document.querySelector(".overlay");
 const deleteListConfirmation = document.querySelector(".delete-list-message");
-// const listItem = document.querySelector(".list-item");
-// const listItemExtraInfo = document.querySelector(".list-additional-info");
-// const newBtn = document.getElementById("btn");
-// const listPreviewElement = document.querySelector(".list-element");
-// const listPreviewElement = document.querySelector(".list-element");
-// const listPreviewElement = document.querySelector(".list-element");
-// const listPreviewElement = document.querySelector(".list-element");
-// const listPreviewElement = document.querySelector(".list-element");
-// const listPreviewElement = document.querySelector(".list-element");
+
 const newListBtn = document.querySelector(".new-list-btn");
 const colourPickerBtn = document.querySelector(".list-colour-btn");
-// const l = document.getElementById(".edit-title-btn");
-// const checkboxBtn = document.querySelector(".check");
-// const expandListItemBtn = document.querySelector(".expand-item-btn");
-// const deleteItemBtn = document.querySelector(".delete-item-btn");
 
 const listItemData1 = {
   id: 1111,
@@ -101,30 +89,37 @@ listOptionsContainer.addEventListener("click", function (e) {
   }
 });
 
+// LIST ITEM EVENTS
 listItemsParent.addEventListener("click", function (e) {
   // console.log(e.target);
   const target = e.target;
-  const listItem = target.closest(".full-list-item");
+  const listItemWrapper = target.closest(".full-list-item");
   const itemID = target.closest(".full-list-item").dataset.id;
-  const additionalInfoBtn = listItem.querySelector(".expand-item-btn");
-  const additionalInfoDiv = listItem.querySelector(".list-additional-info");
-  const deleteItemBtn = listItem.querySelector(".delete-item-btn");
+  const extraInfoBtn = listItemWrapper.querySelector(".expand-item-btn");
+  const extraInfoDiv = listItemWrapper.querySelector(".list-additional-info");
+  const listItemCheck = listItemWrapper.querySelector(".check");
+  const listItem = listItemWrapper.querySelector(".list-item");
   console.log(itemID);
+  console.log(listItemWrapper);
 
+  // Expanding and contracting additional info div
   if (target.classList[0] === "expand-item-btn") {
-    additionalInfoDiv.classList[1] === "expanded"
-      ? (additionalInfoDiv.classList.remove("expanded"),
-        (additionalInfoBtn.style.transform = "rotate(0deg)"))
-      : (additionalInfoDiv.classList.add("expanded"),
-        (additionalInfoBtn.style.transform = "rotate(180deg)"));
-    // console.log(expandItemBtn);
-    // console.log(`hello`);
-    // console.log(`Target:`, target);
-    // console.log(
-    //   `TargetParentID:`,
-    //   target.closest(".full-list-item").dataset.id
-    // );
+    extraInfoDiv.classList[1] === "expanded"
+      ? (extraInfoDiv.classList.remove("expanded"),
+        (extraInfoBtn.style.transform = "rotate(0deg)"))
+      : (extraInfoDiv.classList.add("expanded"),
+        (extraInfoBtn.style.transform = "rotate(180deg)"));
   }
+
+  // Deleting list item
+  if (target.classList[0] === "delete-item-btn") {
+    listItemWrapper.remove();
+  }
+
+  // Completing an item
+  listItemCheck.checked
+    ? listItem.classList.add("completed")
+    : listItem.classList.remove("completed");
 });
 
 // ///////// FUNCTIONS
@@ -162,6 +157,7 @@ function changeColour(colCode) {
   listColour.style.backgroundColor = colCode;
   colourPickerBtn.style.backgroundColor = colCode;
 }
+
 // OVERLAY & MODAL WINDOW
 // open
 function toggleModal(modal) {
@@ -174,9 +170,7 @@ function toggleModal(modal) {
 //   modal.classList.add("hidden");
 // }
 
-// ADDING ITEM
-function addListItem(e) {}
-
+// ADDING LIST ITEM
 function generateListItemMarkup(data) {
   html = `
     <div class="full-list-item" data-id=${data.id}>
@@ -184,7 +178,7 @@ function generateListItemMarkup(data) {
       <div class="list-item ${data.priority}">
 
         <div class="item-info">
-            <input type="checkbox" name="" class="check">
+            <input type="checkbox"  name="" class="check">
             <label for="checkbox" class="checkmark"></label>
             <h2>${data.title} ID: ${data.id}</h2>
         </div>
