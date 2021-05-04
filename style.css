@@ -280,7 +280,7 @@ body {
 .list-title .form {
   width: 100%;
   height: 90%;
-  margin: 0 0.5rem;
+  margin: 0.5rem 0.5rem;
 }
 .change-list-title-form {
   height: 100%;
@@ -303,8 +303,8 @@ body {
   font-size: 3.5rem;
 }
 .input-list-title-btn {
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   color: white;
   font-weight: bold;
@@ -317,11 +317,11 @@ body {
   cursor: pointer;
   transition: all ease-in-out 250ms;
   margin: 1rem 1rem;
-  box-shadow: 6px 6px 20px rgba(7, 7, 7, 0.239);
+  box-shadow: 4px 5px 5px rgba(7, 7, 7, 0.239);
 }
-.input-list-title-btn:hover {
+/* .input-list-title-btn:hover {
   box-shadow: 2px 2px 13px var(--purple-branding);
-}
+} */
 
 .list-view-expanded .list-items {
   flex: 8;
@@ -498,7 +498,7 @@ body {
 /* button animation */
 .expand-item-btn:hover {
   /* transform: rotate(180deg); */
-  color: rgb(167, 167, 167);
+  color: rgb(61, 61, 61);
 }
 .delete-item-btn:hover,
 .delete-list-btn:hover {
@@ -708,7 +708,8 @@ body {
   color: rgb(116, 115, 115);
 }
 .new-list-item-form input,
-textarea {
+textarea,
+select {
   font-size: 1.5rem;
   padding: 0.8rem 1rem;
   border: 1px solid #ddd;

@@ -99,8 +99,8 @@
                         </div>
 
                         <div class="no-form ">
-                            <h1>Untitled List</h1>
-                            <button id="edit-title-btn">
+                            <h1 class="unique-heading">Untitled List</h1>
+                            <button class="edit-title-btn">
                                 <ion-icon name="create-outline"></ion-icon>
                             </button>
                         </div>
@@ -440,30 +440,31 @@
     <div class="overlay hidden"></div>
 
     <!-- New List Form -->
-    <div class="form-container hidden">
+    <div class="form-container ">
 
         <form class="new-list-item-form">
             <label for="item-name">Item Name:</label>
-            <input type="text" name="item-name" placeholder="Required (max 20 characters)" maxlength="20">
-            <label for="date">Due Date:</label>
-            <input type="date" name="date">
-            <label for="time">Time Due:</label>
-            <input type="time" name="time">
+            <input type="text" name="item-name" placeholder="Required (max 20 characters)" maxlength="20"
+                class="item-name" required>
+            <label for="dueDate">Due Date:</label>
+            <input type="date" name="dueDate" class="due-date">
+            <label for="timeDue">Time Due:</label>
+            <input type="time" name="timeDue" class="time-due">
             <label for="description">Description:</label>
-            <textarea name="" id="description" cols="30" rows="5" maxlength="150"
-                placeholder="(max 150 characters)"></textarea>
+            <textarea name="" id="description" cols="30" rows="5" maxlength="150" placeholder="(max 150 characters)"
+                class="description"></textarea>
             <label for="priority">Priority:</label>
-            <input list="priority" placeholder="Default: No priority">
-            <datalist id="priority">
-                <option value="No Priority" default></option>
-                <option value="Low Priority"></option>
-                <option value="Medium Priority"></option>
-                <option value="High Priority"></option>
-            </datalist>
+            <!-- <input list="priority" placeholder="Default: No priority" class="priority"> -->
+            <select class="priority">
+                <option value="1">No Priority</option>
+                <option value="2">Low Priority</option>
+                <option value="3">Medium Priority</option>
+                <option value="4">High Priority</option>
+            </select>
 
             <div class="action-btns">
                 <button type="submit" class="add-btn">Add</button>
-                <button class="cancel-btn">Cancel</button>
+                <button type="button" class="cancel-btn">Cancel</button>
             </div>
 
         </form>

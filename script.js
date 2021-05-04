@@ -17,9 +17,21 @@ const deleteListConfirmation = document.querySelector(".delete-list-message");
 const newListBtn = document.querySelector(".new-list-btn");
 const colourPickerBtn = document.querySelector(".list-colour-btn");
 
+const listTitleParent = document.querySelector(".list-title");
+const listHeading = document.querySelector(".unique-heading");
+
+// Form values
+const itemNameInput = document.querySelector(".item-name");
+const itemDueDateInput = document.querySelector(".due-date");
+const itemTimeDueInput = document.querySelector(".time-due");
+const itemDescriptionInput = document.querySelector(".description");
+const itemPriorityInput = document.querySelector(".priority");
+
+// ////// CODE
+
 const listItemData1 = {
   id: 1111,
-  title: "Eat Apples",
+  itemTitle: "Eat Apples",
   priority: "high_pri",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi, sed quia neque esse maiores nam et id",
@@ -30,7 +42,7 @@ const listItemData1 = {
 
 const listItemData2 = {
   id: 2222,
-  title: "Eat Bread",
+  itemTitle: "Eat Bread",
   priority: "medium_pri",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi, sed quia neque esse maiores nam et id",
@@ -41,7 +53,7 @@ const listItemData2 = {
 
 const listItemData3 = {
   id: 3333,
-  title: "Eat Cake",
+  itemTitle: "Eat Cake",
   priority: "low_pri",
   description:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi, sed quia neque esse maiores nam et id",
@@ -50,43 +62,59 @@ const listItemData3 = {
   completed: false,
 };
 
-const state = {
-  id: "",
-  listTitle: "",
-  colour: "var(--grey-theme)",
-  listItems: [],
+const now = Date.now();
+
+const fullList1 = {
+  id: "123456781",
+  listTitle: "My first List",
+  colour: "var(--bright-theme)",
+  listItems: [listItemData1, listItemData2, listItemData3],
+};
+
+const fullList2 = {
+  id: "123456782",
+  listTitle: "My second List",
+  colour: "var(--blue-theme)",
+  listItems: [listItemData1, listItemData2, listItemData3],
+};
+
+const fullList3 = {
+  id: "123456783",
+  listTitle: "My third List",
+  colour: "var(--purple-theme)",
+  listItems: [listItemData1, listItemData2, listItemData3],
+};
+
+const lists = {
+  listCollection: [fullList1, fullList2, fullList3],
 };
 
 // ///////// EVENTLISTENERS
 
-// Event delegation - listener added to parent element
-listOptionsContainer.addEventListener("click", function (e) {
-  const button = e.target.closest("button");
-  //   let buttonColour;
-  console.log(button);
+// LIST TITTLE
+listTitleParent.addEventListener("click", function (e) {
+  e.preventDefault();
+  const target = e.target;
+  console.log(target);
+  const noForm = document.querySelector(".no-form");
+  const form = document.querySelector(".form");
+  const newHeading = document.querySelector(".input-list-title");
 
-  if (!button) return;
-
-  //   List colour button
-  if (button.classList.contains("list-colour-btn"))
-    listColourContainer.classList.toggle("hidden");
-
-  if (button.classList.contains("colour-option")) {
-    const buttonColour = listColourPicker(button);
-    changeColour(buttonColour);
+  if (
+    target.classList.contains("edit-title-btn") ||
+    target.classList.contains("input-list-title-btn")
+  ) {
+    noForm.classList.toggle("hidden");
+    form.classList.toggle("hidden");
   }
 
-  //   Add item button
-  if (button.classList.contains("add-item-btn")) {
-    // toggleModal(formContainer);
-    generateListItemMarkup(listItemData1);
-    generateListItemMarkup(listItemData2);
-    generateListItemMarkup(listItemData3);
-  }
-  //   Delete List button
-  if (button.classList.contains("delete-list-btn")) {
-    toggleModal(deleteListConfirmation);
-  }
+  fullList1.listTitle = `${newHeading.value}`;
+  // generateListItemMarkup(data)
+  console.log(fullList1);
+  listHeading.innerHTML = `${newHeading.value}`;
+
+  // renderList(fullList1);
+  // generateListPreview(fullList1)
 });
 
 // LIST ITEM EVENTS
@@ -99,8 +127,8 @@ listItemsParent.addEventListener("click", function (e) {
   const extraInfoDiv = listItemWrapper.querySelector(".list-additional-info");
   const listItemCheck = listItemWrapper.querySelector(".check");
   const listItem = listItemWrapper.querySelector(".list-item");
-  console.log(itemID);
-  console.log(listItemWrapper);
+  // console.log(itemID);
+  // console.log(listItemWrapper);
 
   // Expanding and contracting additional info div
   if (target.classList[0] === "expand-item-btn") {
@@ -122,22 +150,68 @@ listItemsParent.addEventListener("click", function (e) {
     : listItem.classList.remove("completed");
 });
 
+// LIST OPTIONS BUTTONS
+listOptionsContainer.addEventListener("click", function (e) {
+  const button = e.target.closest("button");
+  //   let buttonColour;
+  // console.log(button);
+
+  if (!button) return;
+
+  //   List colour button
+  if (button.classList.contains("list-colour-btn"))
+    listColourContainer.classList.toggle("hidden");
+
+  if (button.classList.contains("colour-option")) {
+    const buttonColour = listColourPicker(button);
+    changeColour(buttonColour, fullList1);
+  }
+
+  //   Add item button
+  if (button.classList.contains("add-item-btn")) {
+    // toggleModal(formContainer);
+    console.log(generateListItemMarkup(listItemData1));
+    generateListItemMarkup(listItemData2);
+    generateListItemMarkup(listItemData3);
+  }
+  //   Delete List button
+  if (button.classList.contains("delete-list-btn")) {
+    toggleModal(deleteListConfirmation);
+  }
+});
+
 // ///////// FUNCTIONS
-let count = 0;
-function addNewList() {
+
+// GENERATE LIST PREVIEW
+function generateListPreview(list) {
   if (listPreviewsParent.firstElementChild.classList.contains("no-lists"))
     noListMessage.classList.add("hidden");
 
-  count++;
   const html = `<div class="list-element">
-                <div class="colour-line"></div>
-                <h2>Untitled List ${count} </h2>
+                <div class="colour-line" data-colour=${list.colour}></div>
+                <h2>${list.listTitle} </h2>
                 </div>`;
+
   listPreviewsParent.insertAdjacentHTML("afterbegin", html);
-  //   listExpandedParent.insertAdjacentHTML()
-  const locale = navigator;
-  console.log(locale);
+  listPreviewsParent.querySelector(
+    ".colour-line"
+  ).style.backgroundColor = `${list.colour}`;
 }
+generateListPreview(fullList1);
+generateListPreview(fullList2);
+generateListPreview(fullList3);
+// console.log(fullList1);
+
+// Render info from list object
+function renderList(listObj) {
+  // console.log(`RenderList:`, listObj);
+  // console.log(`list items:`, listObj.listItems);
+  const listItems = listObj.listItems;
+  listItems.forEach((item) => generateListItemMarkup(item));
+  // listHeading.innerHTML = `${listObj.listTitle}`;
+  // generateListItemMarkup(listObj);
+}
+renderList(lists.listCollection[0]);
 
 // Message un-hidden when form is submitted
 const hideSuccessMessage = function () {
@@ -153,9 +227,11 @@ function listColourPicker(event) {
   return (buttonColour = event.dataset.colour);
 }
 
-function changeColour(colCode) {
+function changeColour(colCode, curList) {
   listColour.style.backgroundColor = colCode;
   colourPickerBtn.style.backgroundColor = colCode;
+  curList.colour = colCode;
+  console.log(curList);
 }
 
 // OVERLAY & MODAL WINDOW
@@ -171,8 +247,65 @@ function toggleModal(modal) {
 // }
 
 // ADDING LIST ITEM
+// Fed w/ info from fullList.listItems
+// function generateListItemMarkup(data) {
+//   html = `
+//     <div class="full-list-item" data-id=${data.id}>
+
+//       <div class="list-item ${data.priority}">
+
+//         <div class="item-info">
+//             <input type="checkbox"  name="" class="check">
+//             <label for="checkbox" class="checkmark"></label>
+//             <h2>${data.itemTitle} ID: ${data.id}</h2>
+//         </div>
+
+//         <div class="item-interactions">
+//             <button class="expand-item-btn">
+//               <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+//             </button>
+
+//             <button class="delete-item-btn">
+//               <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+//             </button>
+//         </div>
+
+//       </div>
+
+//       <div class="list-additional-info ">
+//         <p class="extra-info">
+//           <span>Description: </span>
+//             ${data.description}
+//         </p>
+//         <p class="extra-info">
+//           <span>Due date: </span>
+//             ${data.dueDate}
+//         </p>
+//         <p class="extra-info">
+//           <span>Time due: </span>
+//             ${data.timeDue}
+//         </p>
+//       </div>
+
+//     </div>
+//     `;
+//   listItemsParent.insertAdjacentHTML("beforeend", html);
+//   // console.log(data.listItems);
+// }
+
+// ///// MARKUP GENERATION
+
+// LIST PREVIEWS
+function generateListPreviewMarkup(list) {
+  return `<div class="list-element">
+                <div class="colour-line" data-colour=${list.colour}></div>
+                <h2>${list.listTitle} </h2>
+                </div>`;
+}
+
+// LIST ITEMS
 function generateListItemMarkup(data) {
-  html = `
+  return `
     <div class="full-list-item" data-id=${data.id}>
 
       <div class="list-item ${data.priority}">
@@ -180,7 +313,7 @@ function generateListItemMarkup(data) {
         <div class="item-info">
             <input type="checkbox"  name="" class="check">
             <label for="checkbox" class="checkmark"></label>
-            <h2>${data.title} ID: ${data.id}</h2>
+            <h2>${data.itemTitle} ID: ${data.id}</h2>
         </div>
 
         <div class="item-interactions">
@@ -212,5 +345,99 @@ function generateListItemMarkup(data) {
 
     </div>
     `;
-  listItemsParent.insertAdjacentHTML("beforeend", html);
 }
+
+// ///// CLASSES
+
+class List {
+  // constructor function is what is responsible for creating the new object based on this class -> fired whenever you want to create a new list object
+  constructor() {
+    this.id = Date.now();
+    this.listTitle = "Untitled list";
+    this.colour = "var(--grey-theme)";
+    this.listItems = [];
+  }
+
+  addListItem(itemObj) {
+    // console.log(this);
+    this.listItems.push(itemObj);
+  }
+
+  removeListItem(itemObj) {
+    // item from array where who's id matches the id of itemObj must be deleted. Filter array if id doesnt match id of itemObj.
+    const idToRemove = itemObj.id;
+    this.listItems = this.listItems.filter((item) => item.id !== idToRemove);
+    console.log(`remove`, this.listItems);
+    console.log(this);
+  }
+
+  changeColour(colCode) {
+    this.colour = colCode;
+  }
+
+  changeListTitle(newTitle) {
+    this.listTitle = newTitle;
+  }
+}
+const q = {
+  id: 3333,
+  itemTitle: "Eat Cake",
+  priority: "low_pri",
+  description:
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi, sed quia neque esse maiores nam et id",
+  dueDate: "14 Mar 2021",
+  timeDue: "12.30pm",
+  completed: false,
+};
+// the 'new' keyword
+// - creates new empty object
+// - sets value of 'this' to new empty object. Use 'this' to set new properties to the instances
+// - calls the constructor method
+let nows = new Date().getTime();
+
+let list1 = new List();
+list1.addListItem(q);
+console.log(`add q`, list1);
+list1.removeListItem(q);
+
+const z = {
+  id: "123456781",
+  listTitle: "My first List",
+  colour: "var(--bright-theme)",
+  listItems: [listItemData1, listItemData2, listItemData3],
+};
+// 1620138352117
+
+class ListItem {
+  constructor() {
+    this.id = Date.now();
+    this.itemtitle = itemNameInput.value;
+    this.dueDate = itemDueDateInput.value;
+    this.timeDue = itemTimeDueInput.value;
+    this.description = itemDescriptionInput.value;
+    this.priority = itemPriorityInput.value;
+  }
+
+  convertPri(pri) {}
+}
+
+const formCont = document.querySelector(".new-list-item-form");
+
+function clearForm() {
+  formCont.value = "";
+}
+
+formCont.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const listItem = new ListItem();
+  console.log(listItem);
+  // formCont.reset();
+  list1.addListItem(listItem);
+  console.log(list1);
+  clearForm();
+  // console.log(`name`, itemNameInput.value);
+  // console.log(`date`, itemDueDateInput.value);
+  // console.log(`time`, itemTimeDueInput.value);
+  // console.log(`description`, itemDescriptionInput.value);
+  // console.log(`pri`, itemPriorityInput.value);
+});
