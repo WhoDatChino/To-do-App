@@ -27,6 +27,8 @@ const itemTimeDueInput = document.querySelector(".time-due");
 const itemDescriptionInput = document.querySelector(".description");
 const itemPriorityInput = document.querySelector(".priority");
 
+const formCont = document.querySelector(".new-list-item-form");
+
 // ////// CODE
 
 const listItemData1 = {
@@ -62,8 +64,6 @@ const listItemData3 = {
   completed: false,
 };
 
-const now = Date.now();
-
 const fullList1 = {
   id: "123456781",
   listTitle: "My first List",
@@ -85,9 +85,9 @@ const fullList3 = {
   listItems: [listItemData1, listItemData2, listItemData3],
 };
 
-const lists = {
-  listCollection: [fullList1, fullList2, fullList3],
-};
+// const listCollection = {
+//   lists: [fullList1, fullList2, fullList3],
+// };
 
 // ///////// EVENTLISTENERS
 
@@ -183,23 +183,23 @@ listOptionsContainer.addEventListener("click", function (e) {
 // ///////// FUNCTIONS
 
 // GENERATE LIST PREVIEW
-function generateListPreview(list) {
-  if (listPreviewsParent.firstElementChild.classList.contains("no-lists"))
-    noListMessage.classList.add("hidden");
+// function generateListPreview(list) {
+//   if (listPreviewsParent.firstElementChild.classList.contains("no-lists"))
+//     noListMessage.classList.add("hidden");
 
-  const html = `<div class="list-element">
-                <div class="colour-line" data-colour=${list.colour}></div>
-                <h2>${list.listTitle} </h2>
-                </div>`;
+//   const html = `<div class="list-element">
+//                 <div class="colour-line" data-colour=${list.colour}></div>
+//                 <h2>${list.listTitle} </h2>
+//                 </div>`;
 
-  listPreviewsParent.insertAdjacentHTML("afterbegin", html);
-  listPreviewsParent.querySelector(
-    ".colour-line"
-  ).style.backgroundColor = `${list.colour}`;
-}
-generateListPreview(fullList1);
-generateListPreview(fullList2);
-generateListPreview(fullList3);
+//   listPreviewsParent.insertAdjacentHTML("afterbegin", html);
+//   listPreviewsParent.querySelector(
+//     ".colour-line"
+//   ).style.backgroundColor = `${list.colour}`;
+// }
+// generateListPreview(fullList1);
+// generateListPreview(fullList2);
+// generateListPreview(fullList3);
 // console.log(fullList1);
 
 // Render info from list object
@@ -211,7 +211,7 @@ function renderList(listObj) {
   // listHeading.innerHTML = `${listObj.listTitle}`;
   // generateListItemMarkup(listObj);
 }
-renderList(lists.listCollection[0]);
+// renderList(listCollection.lists[0]);
 
 // Message un-hidden when form is submitted
 const hideSuccessMessage = function () {
@@ -246,113 +246,13 @@ function toggleModal(modal) {
 //   modal.classList.add("hidden");
 // }
 
-// ADDING LIST ITEM
-// Fed w/ info from fullList.listItems
-// function generateListItemMarkup(data) {
-//   html = `
-//     <div class="full-list-item" data-id=${data.id}>
-
-//       <div class="list-item ${data.priority}">
-
-//         <div class="item-info">
-//             <input type="checkbox"  name="" class="check">
-//             <label for="checkbox" class="checkmark"></label>
-//             <h2>${data.itemTitle} ID: ${data.id}</h2>
-//         </div>
-
-//         <div class="item-interactions">
-//             <button class="expand-item-btn">
-//               <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
-//             </button>
-
-//             <button class="delete-item-btn">
-//               <ion-icon class="delete-item" name="trash-outline"></ion-icon>
-//             </button>
-//         </div>
-
-//       </div>
-
-//       <div class="list-additional-info ">
-//         <p class="extra-info">
-//           <span>Description: </span>
-//             ${data.description}
-//         </p>
-//         <p class="extra-info">
-//           <span>Due date: </span>
-//             ${data.dueDate}
-//         </p>
-//         <p class="extra-info">
-//           <span>Time due: </span>
-//             ${data.timeDue}
-//         </p>
-//       </div>
-
-//     </div>
-//     `;
-//   listItemsParent.insertAdjacentHTML("beforeend", html);
-//   // console.log(data.listItems);
-// }
-
-// ///// MARKUP GENERATION
-
-// LIST PREVIEWS
-function generateListPreviewMarkup(list) {
-  return `<div class="list-element">
-                <div class="colour-line" data-colour=${list.colour}></div>
-                <h2>${list.listTitle} </h2>
-                </div>`;
-}
-
-// LIST ITEMS
-function generateListItemMarkup(data) {
-  return `
-    <div class="full-list-item" data-id=${data.id}>
-
-      <div class="list-item ${data.priority}">
-
-        <div class="item-info">
-            <input type="checkbox"  name="" class="check">
-            <label for="checkbox" class="checkmark"></label>
-            <h2>${data.itemTitle} ID: ${data.id}</h2>
-        </div>
-
-        <div class="item-interactions">
-            <button class="expand-item-btn">
-              <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
-            </button>
-
-            <button class="delete-item-btn">
-              <ion-icon class="delete-item" name="trash-outline"></ion-icon>
-            </button>
-        </div>
-
-      </div>
-
-      <div class="list-additional-info ">
-        <p class="extra-info">
-          <span>Description: </span>
-            ${data.description}
-        </p>
-        <p class="extra-info">
-          <span>Due date: </span>
-            ${data.dueDate}
-        </p>
-        <p class="extra-info">
-          <span>Time due: </span>
-            ${data.timeDue}
-        </p>
-      </div>
-
-    </div>
-    `;
-}
-
 // ///// CLASSES
 
 class List {
+  id = (Date.now() + "").slice(-10);
+
   // constructor function is what is responsible for creating the new object based on this class -> fired whenever you want to create a new list object
   constructor() {
-    this.id = Date.now();
     this.listTitle = "Untitled list";
     this.colour = "var(--grey-theme)";
     this.listItems = [];
@@ -396,9 +296,6 @@ const q = {
 let nows = new Date().getTime();
 
 let list1 = new List();
-list1.addListItem(q);
-console.log(`add q`, list1);
-list1.removeListItem(q);
 
 const z = {
   id: "123456781",
@@ -409,22 +306,26 @@ const z = {
 // 1620138352117
 
 class ListItem {
-  constructor() {
-    this.id = Date.now();
-    this.itemtitle = itemNameInput.value;
+  id = (Date.now() + "").slice(-10);
+
+  constructor(title, dueDate, timeDue, description, priority) {
+    this.itemtitle = itemNameInput.value || "Untitled List";
     this.dueDate = itemDueDateInput.value;
     this.timeDue = itemTimeDueInput.value;
     this.description = itemDescriptionInput.value;
     this.priority = itemPriorityInput.value;
+    this.completed = false;
   }
 
   convertPri(pri) {}
 }
 
-const formCont = document.querySelector(".new-list-item-form");
-
 function clearForm() {
-  formCont.value = "";
+  // Clears input fields
+  itemNameInput.value = itemDueDateInput.value = itemTimeDueInput.value = itemDescriptionInput.value =
+    "";
+  // Makes sure default pri always "no priority"
+  itemPriorityInput.value = "no_pri";
 }
 
 formCont.addEventListener("submit", function (e) {
@@ -435,9 +336,103 @@ formCont.addEventListener("submit", function (e) {
   list1.addListItem(listItem);
   console.log(list1);
   clearForm();
-  // console.log(`name`, itemNameInput.value);
-  // console.log(`date`, itemDueDateInput.value);
-  // console.log(`time`, itemTimeDueInput.value);
-  // console.log(`description`, itemDescriptionInput.value);
-  // console.log(`pri`, itemPriorityInput.value);
 });
+
+// itemNameInput.value || "Untitled List"
+// itemDueDateInput.value;
+// itemTimeDueInput.value
+// itemDescriptionInput.value
+// itemPriorityInput.value
+
+class App {
+  listCollection = [fullList1, fullList2, fullList3];
+
+  constructor() {
+    console.log(this.listCollection);
+    this._renderStorage();
+    // .forEach((list) => _renderListPreviewMarkup(list));
+  }
+
+  _renderStorage() {
+    if (this.listCollection.length === 0) return;
+    noListMessage.classList.add("hidden");
+    this.listCollection.forEach((list) => this._renderListPreviewMarkup(list));
+  }
+
+  _renderListPreviewMarkup(list) {
+    const html = `<div class="list-element" data-listID="${list.id}">
+                  <div class="colour-line" ></div>
+                  <h2>${list.listTitle} </h2>
+                  </div>`;
+
+    listPreviewsParent.insertAdjacentHTML("afterbegin", html);
+
+    listPreviewsParent.querySelector(
+      ".colour-line"
+    ).style.backgroundColor = `${list.colour}`;
+  }
+
+  _generateListItemMarkup(data) {
+    return `
+      <div class="full-list-item" data-id=${data.id}>
+  
+        <div class="list-item ${data.priority}">
+  
+          <div class="item-info">
+              <input type="checkbox"  name="" class="check">
+              <label for="checkbox" class="checkmark"></label>
+              <h2>${data.itemTitle} ID: ${data.id}</h2>
+          </div>
+  
+          <div class="item-interactions">
+              <button class="expand-item-btn">
+                <ion-icon class="expand-item" name="chevron-up-outline"></ion-icon>
+              </button>
+  
+              <button class="delete-item-btn">
+                <ion-icon class="delete-item" name="trash-outline"></ion-icon>
+              </button>
+          </div>
+  
+        </div>
+  
+        <div class="list-additional-info ">
+          <p class="extra-info">
+            <span>Description: </span>
+              ${data.description}
+          </p>
+          <p class="extra-info">
+            <span>Due date: </span>
+              ${data.dueDate}
+          </p>
+          <p class="extra-info">
+            <span>Time due: </span>
+              ${data.timeDue}
+          </p>
+        </div>
+  
+      </div>
+      `;
+  }
+
+  _generateListTitleMarkup() {
+    return `
+    <div class="form hidden">
+      <form class="change-list-title-form">
+          <input class="input-list-title" type="text" maxlength="20" placeholder="(max 20 characters)" name="list-title">
+          <input class="input-list-title-btn" type="submit" value="Done">
+      </form>
+    </div>
+  
+    <div class="no-form ">
+      <h1 class="unique-heading">Untitled List</h1>
+        <button class="edit-title-btn">
+            <ion-icon name="create-outline"></ion-icon>
+        </button>
+    </div>
+    `;
+  }
+}
+
+const a = new App();
+// a._generateListPreviewMarkup();

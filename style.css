@@ -144,6 +144,12 @@ body {
   align-items: center;
   justify-content: flex-start;
 }
+.list-element {
+  cursor: pointer;
+}
+.list-element.no-lists {
+  pointer-events: none;
+}
 
 .list-previews :first-child {
   margin-top: 0;
@@ -152,12 +158,14 @@ body {
 .list-element h2 {
   margin: auto auto;
   font-size: 2rem;
+  pointer-events: none;
 }
 
 .list-element .colour-line {
   height: 100%;
   width: 0.75rem;
   background-color: var(--grey-theme);
+  pointer-events: none;
 }
 
 /* New list button */

@@ -90,7 +90,7 @@
 
                     <div class="list-title">
 
-                        <div class="form hidden">
+                        <!-- <div class="form hidden">
                             <form class="change-list-title-form">
                                 <input class="input-list-title" type="text" maxlength="20"
                                     placeholder="(max 20 characters)" name="list-title">
@@ -103,7 +103,7 @@
                             <button class="edit-title-btn">
                                 <ion-icon name="create-outline"></ion-icon>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="list-items ">
@@ -440,7 +440,7 @@
     <div class="overlay hidden"></div>
 
     <!-- New List Form -->
-    <div class="form-container ">
+    <div class="form-container hidden">
 
         <form class="new-list-item-form">
             <label for="item-name">Item Name:</label>
@@ -456,10 +456,10 @@
             <label for="priority">Priority:</label>
             <!-- <input list="priority" placeholder="Default: No priority" class="priority"> -->
             <select class="priority">
-                <option value="1">No Priority</option>
-                <option value="2">Low Priority</option>
-                <option value="3">Medium Priority</option>
-                <option value="4">High Priority</option>
+                <option value="no_pri">No Priority</option>
+                <option value="low_pri">Low Priority</option>
+                <option value="medium_pri">Medium Priority</option>
+                <option value="high_pri">High Priority</option>
             </select>
 
             <div class="action-btns">
