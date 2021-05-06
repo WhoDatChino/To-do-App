@@ -3,6 +3,12 @@
 // ///////// ELEMENTS
 const noListMessage = document.querySelector(".no-lists");
 const listPreviewsParent = document.querySelector(".list-previews");
+const listViewExpanded = document.querySelector(".list-view-expanded");
+
+const newListBtn = document.querySelector(".new-list-btn");
+
+// OLD
+
 const listItemsParent = document.querySelector(".list-items");
 
 const successMessage = document.querySelector(".success-message");
@@ -14,7 +20,6 @@ const formContainer = document.querySelector(".form-container");
 const overlay = document.querySelector(".overlay");
 const deleteListConfirmation = document.querySelector(".delete-list-message");
 
-const newListBtn = document.querySelector(".new-list-btn");
 const colourPickerBtn = document.querySelector(".list-colour-btn");
 
 const listTitleParent = document.querySelector(".list-title");
@@ -345,20 +350,64 @@ formCont.addEventListener("submit", function (e) {
 // itemPriorityInput.value
 
 class App {
-  listCollection = [fullList1, fullList2, fullList3];
+  curList = 1;
+  listCollection = [];
 
   constructor() {
-    console.log(this.listCollection);
     this._renderStorage();
-    // .forEach((list) => _renderListPreviewMarkup(list));
+    // this._showList();
+
+    // EventLis on new list button
+    newListBtn.addEventListener("click", this._addNewList.bind(this));
   }
 
+  // //METHODS
+
+  // Creating new list
+  _addNewList(e) {
+    this._showList();
+    // console.log(e.target);
+
+    // Creating default list object
+    let newList = new List();
+    this.listCollection.push(newList);
+
+    // Removing message and rendering list preview
+    this._messageChecker();
+    this._renderListPreviewMarkup(newList);
+
+    // Render list contents
+    this._renderListContents();
+
+    console.log(newList);
+  }
+
+  // Hiding and showing right hand side list
+  _showList() {
+    this.curList
+      ? listViewExpanded.classList.remove("hidden")
+      : this._hideList();
+    console.log(this.curList);
+  }
+
+  _hideList() {
+    listViewExpanded.classList.add("hidden");
+  }
+
+  // Determines if message should be displayed or not
+  _messageChecker() {
+    if (this.listCollection.length > 0) noListMessage.classList.add("hidden");
+    console.log(`heelo`);
+  }
+
+  // RENDERS
+  // Rendering lists stored in local storage on loadup
   _renderStorage() {
-    if (this.listCollection.length === 0) return;
-    noListMessage.classList.add("hidden");
+    this._messageChecker();
     this.listCollection.forEach((list) => this._renderListPreviewMarkup(list));
   }
 
+  // Rendering list preview
   _renderListPreviewMarkup(list) {
     const html = `<div class="list-element" data-listID="${list.id}">
                   <div class="colour-line" ></div>
@@ -372,6 +421,13 @@ class App {
     ).style.backgroundColor = `${list.colour}`;
   }
 
+  _renderListContents(curList) {
+    // Render title
+    // Render list items
+  }
+
+  // MARKUPS
+  // Create item markup
   _generateListItemMarkup(data) {
     return `
       <div class="full-list-item" data-id=${data.id}>
@@ -415,6 +471,7 @@ class App {
       `;
   }
 
+  // Create list title markup
   _generateListTitleMarkup() {
     return `
     <div class="form hidden">
