@@ -4,6 +4,7 @@
 const noListMessage = document.querySelector(".no-lists");
 const listPreviewsParent = document.querySelector(".list-previews");
 const listViewExpanded = document.querySelector(".list-view-expanded");
+const listTitleParent = document.querySelector(".list-title");
 
 const newListBtn = document.querySelector(".new-list-btn");
 
@@ -22,7 +23,6 @@ const deleteListConfirmation = document.querySelector(".delete-list-message");
 
 const colourPickerBtn = document.querySelector(".list-colour-btn");
 
-const listTitleParent = document.querySelector(".list-title");
 const listHeading = document.querySelector(".unique-heading");
 
 // Form values
@@ -97,30 +97,28 @@ const fullList3 = {
 // ///////// EVENTLISTENERS
 
 // LIST TITTLE
-listTitleParent.addEventListener("click", function (e) {
-  e.preventDefault();
-  const target = e.target;
-  console.log(target);
-  const noForm = document.querySelector(".no-form");
-  const form = document.querySelector(".form");
-  const newHeading = document.querySelector(".input-list-title");
+// listTitleParent.addEventListener("click", function (e) {
+//   e.preventDefault();
+//   const target = e.target;
+//   console.log(target);
+//   const noForm = document.querySelector(".no-form");
+//   const form = document.querySelector(".form");
+//   const newHeading = document.querySelector(".input-list-title");
 
-  if (
-    target.classList.contains("edit-title-btn") ||
-    target.classList.contains("input-list-title-btn")
-  ) {
-    noForm.classList.toggle("hidden");
-    form.classList.toggle("hidden");
-  }
+//   if (
+//     target.classList.contains("edit-title-btn") ||
+//     target.classList.contains("input-list-title-btn")
+//   ) {
+//     noForm.classList.toggle("hidden");
+//     form.classList.toggle("hidden");
+//   }
 
-  fullList1.listTitle = `${newHeading.value}`;
-  // generateListItemMarkup(data)
-  console.log(fullList1);
-  listHeading.innerHTML = `${newHeading.value}`;
+//   fullList1.listTitle = `${newHeading.value}`;
+//   // generateListItemMarkup(data)
+//   console.log(fullList1);
+//   listHeading.innerHTML = `${newHeading.value}`;
 
-  // renderList(fullList1);
-  // generateListPreview(fullList1)
-});
+// });
 
 // LIST ITEM EVENTS
 listItemsParent.addEventListener("click", function (e) {
@@ -261,6 +259,13 @@ class List {
     this.listTitle = "Untitled list";
     this.colour = "var(--grey-theme)";
     this.listItems = [];
+
+    this.addListItem();
+    // this.removeListItem();
+  }
+
+  changeListTitle(newTitle) {
+    this.listTitle = newTitle;
   }
 
   addListItem(itemObj) {
@@ -279,11 +284,8 @@ class List {
   changeColour(colCode) {
     this.colour = colCode;
   }
-
-  changeListTitle(newTitle) {
-    this.listTitle = newTitle;
-  }
 }
+
 const q = {
   id: 3333,
   itemTitle: "Eat Cake",
@@ -298,7 +300,6 @@ const q = {
 // - creates new empty object
 // - sets value of 'this' to new empty object. Use 'this' to set new properties to the instances
 // - calls the constructor method
-let nows = new Date().getTime();
 
 let list1 = new List();
 
@@ -314,7 +315,7 @@ class ListItem {
   id = (Date.now() + "").slice(-10);
 
   constructor(title, dueDate, timeDue, description, priority) {
-    this.itemtitle = itemNameInput.value || "Untitled List";
+    this.itemtitle = itemNameInput.value;
     this.dueDate = itemDueDateInput.value;
     this.timeDue = itemTimeDueInput.value;
     this.description = itemDescriptionInput.value;
@@ -351,7 +352,8 @@ formCont.addEventListener("submit", function (e) {
 
 class App {
   curList = 1;
-  listCollection = [];
+  listInLC;
+  listCollection = [fullList1, fullList2];
 
   constructor() {
     this._renderStorage();
@@ -359,30 +361,100 @@ class App {
 
     // EventLis on new list button
     newListBtn.addEventListener("click", this._addNewList.bind(this));
+
+    listTitleParent.addEventListener(
+      "click",
+      this._editListTitleForm.bind(this)
+    );
+
+    //   fullList1.listTitle = `${newHeading.value}`;
+    //   // generateListItemMarkup(data)
+    //   console.log(fullList1);
+    //   listHeading.innerHTML = `${newHeading.value}`;
+
+    // });
   }
 
   // //METHODS
 
   // Creating new list
   _addNewList(e) {
+    // 1. Create new List object
+    // 2. Show Right screen if hidden
+    //  2.1 Render title
+    // 3. Render preview
+    // 4. CurList = new List object created
+
     this._showList();
     // console.log(e.target);
 
-    // Creating default list object
+    // Creating default list object & send to ListCollection
     let newList = new List();
     this.listCollection.push(newList);
+
+    // Setting current List to created list
+    this.curList = newList;
 
     // Removing message and rendering list preview
     this._messageChecker();
     this._renderListPreviewMarkup(newList);
 
-    // Render list contents
-    this._renderListContents();
+    // Render list title contents
+    this._renderListTitle(this.curList);
 
-    console.log(newList);
+    console.log(`curList:`, newList);
+    console.log(`LC`, this.listCollection);
   }
 
-  // Hiding and showing right hand side list
+  // Hiding and showing title form
+  _editListTitleForm(e) {
+    e.preventDefault();
+    const target = e.target;
+    // console.log(target);
+    const noForm = document.querySelector(".no-form");
+    const form = document.querySelector(".form");
+    const newHeadingInput = document.querySelector(".input-list-title");
+
+    if (
+      target.classList.contains("edit-title-btn") ||
+      target.classList.contains("input-list-title-btn")
+    ) {
+      noForm.classList.toggle("hidden");
+      form.classList.toggle("hidden");
+    }
+
+    // guard clause
+    if (newHeadingInput.value === "") return;
+
+    this.listCollection[this._findObjectAlgo()].listTitle =
+      newHeadingInput.value;
+    // this._renderListTitle(this.listCollection[this._findObjectAlgo()]);
+
+    console.log(`new LC`, this.listCollection);
+    // console.log(this.curList.id ===
+    // console.log(newHeadingInput.value);
+    // Change title of object in LC where the id of curList matches the id of the one in LC -> reset curList
+
+    // this.curList.changeListTitle(newHeadingInput);
+    // console.log(`curList`, this.curList);
+    // console.log(`LC`, this.listCollection);
+    // listHeading.innerHTML = `${newHeading.value}`;
+  }
+
+  // Returns the index of the original object in the listCollection
+  _findObjectAlgo() {
+    const curListID = this.curList.id;
+
+    return this.listCollection.findIndex((obj) => obj.id === curListID);
+
+    // console.log(foundID);
+  }
+
+  // _editObjectProp(index, prop, value){
+  //   this.listCollection[index].prop = value
+  // }
+
+  // Hiding and showing right hand side list.
   _showList() {
     this.curList
       ? listViewExpanded.classList.remove("hidden")
@@ -397,7 +469,7 @@ class App {
   // Determines if message should be displayed or not
   _messageChecker() {
     if (this.listCollection.length > 0) noListMessage.classList.add("hidden");
-    console.log(`heelo`);
+    // console.log(`heelo`);
   }
 
   // RENDERS
@@ -421,9 +493,9 @@ class App {
     ).style.backgroundColor = `${list.colour}`;
   }
 
-  _renderListContents(curList) {
+  _renderListTitle(curList) {
     // Render title
-    // Render list items
+    listTitleParent.innerHTML = this._generateListTitleMarkup(curList);
   }
 
   // MARKUPS
@@ -472,17 +544,17 @@ class App {
   }
 
   // Create list title markup
-  _generateListTitleMarkup() {
+  _generateListTitleMarkup(data) {
     return `
     <div class="form hidden">
       <form class="change-list-title-form">
-          <input class="input-list-title" type="text" maxlength="20" placeholder="(max 20 characters)" name="list-title">
+          <input class="input-list-title" required type="text" maxlength="20" placeholder="(max 20 characters)" name="list-title" >
           <input class="input-list-title-btn" type="submit" value="Done">
       </form>
     </div>
   
     <div class="no-form ">
-      <h1 class="unique-heading">Untitled List</h1>
+      <h1 class="unique-heading">${data.listTitle}</h1>
         <button class="edit-title-btn">
             <ion-icon name="create-outline"></ion-icon>
         </button>
