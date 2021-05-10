@@ -367,15 +367,16 @@ class App {
       this._editListTitleForm.bind(this)
     );
 
-    //   fullList1.listTitle = `${newHeading.value}`;
-    //   // generateListItemMarkup(data)
-    //   console.log(fullList1);
-    //   listHeading.innerHTML = `${newHeading.value}`;
-
-    // });
+    listPreviewsParent.addEventListener("click", this._changeCurList);
   }
 
   // //METHODS
+
+  _changeCurList(e) {
+    const targetID = e.target.dataset.listid;
+    this.curList = this.listCollection.some((list) => list.id === targetID);
+    console.log(this.curList);
+  }
 
   // Creating new list
   _addNewList(e) {
@@ -410,11 +411,16 @@ class App {
   _editListTitleForm(e) {
     e.preventDefault();
     const target = e.target;
+    const curListID = this.curList.id;
     // console.log(target);
     const noForm = document.querySelector(".no-form");
     const form = document.querySelector(".form");
     const newHeadingInput = document.querySelector(".input-list-title");
+    const curListPreview = listPreviewsParent.querySelector(
+      `[data-listID = '${curListID}']`
+    );
 
+    // Hiding and showing edit list form
     if (
       target.classList.contains("edit-title-btn") ||
       target.classList.contains("input-list-title-btn")
@@ -426,19 +432,16 @@ class App {
     // guard clause
     if (newHeadingInput.value === "") return;
 
+    // Mutating correct object in LC
     this.listCollection[this._findObjectAlgo()].listTitle =
       newHeadingInput.value;
-    // this._renderListTitle(this.listCollection[this._findObjectAlgo()]);
 
-    console.log(`new LC`, this.listCollection);
-    // console.log(this.curList.id ===
-    // console.log(newHeadingInput.value);
-    // Change title of object in LC where the id of curList matches the id of the one in LC -> reset curList
+    // Updating curList w/ newly edited object
+    this.curList = this.listCollection[this._findObjectAlgo()];
 
-    // this.curList.changeListTitle(newHeadingInput);
-    // console.log(`curList`, this.curList);
-    // console.log(`LC`, this.listCollection);
-    // listHeading.innerHTML = `${newHeading.value}`;
+    // Re-render List title & part of preview
+    this._renderListTitle(this.curList);
+    curListPreview.lastElementChild.innerHTML = this.curList.listTitle;
   }
 
   // Returns the index of the original object in the listCollection
@@ -449,10 +452,6 @@ class App {
 
     // console.log(foundID);
   }
-
-  // _editObjectProp(index, prop, value){
-  //   this.listCollection[index].prop = value
-  // }
 
   // Hiding and showing right hand side list.
   _showList() {
@@ -481,10 +480,7 @@ class App {
 
   // Rendering list preview
   _renderListPreviewMarkup(list) {
-    const html = `<div class="list-element" data-listID="${list.id}">
-                  <div class="colour-line" ></div>
-                  <h2>${list.listTitle} </h2>
-                  </div>`;
+    const html = this._generateListPreviewMarkup(list);
 
     listPreviewsParent.insertAdjacentHTML("afterbegin", html);
 
@@ -499,6 +495,14 @@ class App {
   }
 
   // MARKUPS
+  // Create preview Markup
+  _generateListPreviewMarkup(data) {
+    return `<div class="list-element" data-listID="${data.id}">
+    <div class="colour-line" ></div>
+    <h2>${data.listTitle} </h2>
+    </div>`;
+  }
+
   // Create item markup
   _generateListItemMarkup(data) {
     return `
