@@ -5,23 +5,21 @@ const noListMessage = document.querySelector(".no-lists");
 const listPreviewsParent = document.querySelector(".list-previews");
 const listViewExpanded = document.querySelector(".list-view-expanded");
 const listTitleParent = document.querySelector(".list-title");
+const listColour = document.querySelector(".colour-line");
+const listOptionsContainer = document.querySelector(".list-options");
+const overlay = document.querySelector(".overlay");
 
 const newListBtn = document.querySelector(".new-list-btn");
+const colourPickerBtn = document.querySelector(".list-colour-btn");
 
 // OLD
 
 const listItemsParent = document.querySelector(".list-items");
-
 const successMessage = document.querySelector(".success-message");
-const listColour = document.querySelector(".colour-line");
-const listOptionsContainer = document.querySelector(".list-options");
 const listColourContainer = document.querySelector(".list-colour-options");
 
 const formContainer = document.querySelector(".form-container");
-const overlay = document.querySelector(".overlay");
 const deleteListConfirmation = document.querySelector(".delete-list-message");
-
-const colourPickerBtn = document.querySelector(".list-colour-btn");
 
 const listHeading = document.querySelector(".unique-heading");
 
@@ -90,36 +88,6 @@ const fullList3 = {
   listItems: [listItemData1, listItemData2, listItemData3],
 };
 
-// const listCollection = {
-//   lists: [fullList1, fullList2, fullList3],
-// };
-
-// ///////// EVENTLISTENERS
-
-// LIST TITTLE
-// listTitleParent.addEventListener("click", function (e) {
-//   e.preventDefault();
-//   const target = e.target;
-//   console.log(target);
-//   const noForm = document.querySelector(".no-form");
-//   const form = document.querySelector(".form");
-//   const newHeading = document.querySelector(".input-list-title");
-
-//   if (
-//     target.classList.contains("edit-title-btn") ||
-//     target.classList.contains("input-list-title-btn")
-//   ) {
-//     noForm.classList.toggle("hidden");
-//     form.classList.toggle("hidden");
-//   }
-
-//   fullList1.listTitle = `${newHeading.value}`;
-//   // generateListItemMarkup(data)
-//   console.log(fullList1);
-//   listHeading.innerHTML = `${newHeading.value}`;
-
-// });
-
 // LIST ITEM EVENTS
 listItemsParent.addEventListener("click", function (e) {
   // console.log(e.target);
@@ -154,56 +122,36 @@ listItemsParent.addEventListener("click", function (e) {
 });
 
 // LIST OPTIONS BUTTONS
-listOptionsContainer.addEventListener("click", function (e) {
-  const button = e.target.closest("button");
-  //   let buttonColour;
-  // console.log(button);
+// listOptionsContainer.addEventListener("click", function (e) {
+//   const button = e.target.closest("button");
+//   //   let buttonColour;
+//   // console.log(button);
 
-  if (!button) return;
+//   if (!button) return;
 
-  //   List colour button
-  if (button.classList.contains("list-colour-btn"))
-    listColourContainer.classList.toggle("hidden");
+//   //   List colour button
+//   if (button.classList.contains("list-colour-btn"))
+//     listColourContainer.classList.toggle("hidden");
 
-  if (button.classList.contains("colour-option")) {
-    const buttonColour = listColourPicker(button);
-    changeColour(buttonColour, fullList1);
-  }
+//   if (button.classList.contains("colour-option")) {
+//     const buttonColour = listColourPicker(button);
+//     changeColour(buttonColour, fullList1);
+//   }
 
-  //   Add item button
-  if (button.classList.contains("add-item-btn")) {
-    // toggleModal(formContainer);
-    console.log(generateListItemMarkup(listItemData1));
-    generateListItemMarkup(listItemData2);
-    generateListItemMarkup(listItemData3);
-  }
-  //   Delete List button
-  if (button.classList.contains("delete-list-btn")) {
-    toggleModal(deleteListConfirmation);
-  }
-});
+//   //   Add item button
+//   if (button.classList.contains("add-item-btn")) {
+//     // toggleModal(formContainer);
+//     console.log(generateListItemMarkup(listItemData1));
+//     generateListItemMarkup(listItemData2);
+//     generateListItemMarkup(listItemData3);
+//   }
+//   //   Delete List button
+//   if (button.classList.contains("delete-list-btn")) {
+//     toggleModal(deleteListConfirmation);
+//   }
+// });
 
 // ///////// FUNCTIONS
-
-// GENERATE LIST PREVIEW
-// function generateListPreview(list) {
-//   if (listPreviewsParent.firstElementChild.classList.contains("no-lists"))
-//     noListMessage.classList.add("hidden");
-
-//   const html = `<div class="list-element">
-//                 <div class="colour-line" data-colour=${list.colour}></div>
-//                 <h2>${list.listTitle} </h2>
-//                 </div>`;
-
-//   listPreviewsParent.insertAdjacentHTML("afterbegin", html);
-//   listPreviewsParent.querySelector(
-//     ".colour-line"
-//   ).style.backgroundColor = `${list.colour}`;
-// }
-// generateListPreview(fullList1);
-// generateListPreview(fullList2);
-// generateListPreview(fullList3);
-// console.log(fullList1);
 
 // Render info from list object
 function renderList(listObj) {
@@ -328,8 +276,11 @@ class ListItem {
 
 function clearForm() {
   // Clears input fields
-  itemNameInput.value = itemDueDateInput.value = itemTimeDueInput.value = itemDescriptionInput.value =
-    "";
+  itemNameInput.value =
+    itemDueDateInput.value =
+    itemTimeDueInput.value =
+    itemDescriptionInput.value =
+      "";
   // Makes sure default pri always "no priority"
   itemPriorityInput.value = "no_pri";
 }
@@ -353,7 +304,7 @@ formCont.addEventListener("submit", function (e) {
 class App {
   curList = 1;
   listInLC;
-  listCollection = [fullList1, fullList2];
+  listCollection = [];
 
   constructor() {
     this._renderStorage();
@@ -367,15 +318,87 @@ class App {
       this._editListTitleForm.bind(this)
     );
 
-    listPreviewsParent.addEventListener("click", this._changeCurList);
+    listPreviewsParent.addEventListener(
+      "click",
+      this._changeCurList.bind(this)
+    );
+
+    listOptionsContainer.addEventListener(
+      "click",
+      this._listInteractions.bind(this)
+    );
   }
 
   // //METHODS
 
+  _listInteractions(e) {
+    const button = e.target.closest("button");
+
+    if (!button) return;
+
+    //   List colour button
+    if (button.classList.contains("list-colour-btn")) {
+      this._changeListColourBTN();
+    }
+
+    if (button.classList.contains("colour-option")) {
+      this._changeListColourOptions(button);
+    }
+
+    //   Add item button
+    if (button.classList.contains("add-item-btn")) {
+    }
+    //   Delete List button
+    if (button.classList.contains("delete-list-btn")) {
+    }
+  }
+
+  // Called when list colour btn pressed
+  _changeListColourBTN() {
+    listColourContainer.classList.toggle("hidden");
+    // overlay.style.opacity = 0;
+  }
+  _changeListColourOptions(btn) {
+    const buttonColour = btn.dataset.colour;
+    //     changeColour(buttonColour, fullList1);
+    // const buttonColour = e.target;
+
+    this.listCollection[this._findObjectAlgo()].colour = buttonColour;
+    this.curList = this.listCollection[this._findObjectAlgo()];
+    // this.update( this.curList, listPreviewsParent);
+    const curListPreview = listPreviewsParent.querySelector(
+      `[data-listID = '${this.curList.id}']`
+    ).firstElementChild;
+    curListPreview.style.backgroundColor = buttonColour;
+    // console.log(curListPreview);
+    this._renderListColour();
+  }
+
+  _showOverlay() {
+    overlay.classList.remove("hidden");
+  }
+
+  _hideOverlay() {
+    overlay.classList.add("hidden");
+  }
+
   _changeCurList(e) {
     const targetID = e.target.dataset.listid;
-    this.curList = this.listCollection.some((list) => list.id === targetID);
-    console.log(this.curList);
+    console.log(`IT`, targetID);
+    if (!targetID) return;
+    this.curList = this.listCollection.filter(
+      (list) => list.id === targetID
+    )[0];
+
+    this._showList();
+    // this._renderListPreviewMarkup(this.curList);
+
+    // Render list title contents
+    this._renderListTitle(this.curList);
+    this._renderListColour();
+
+    // console.log(`cur:`, this.curList);
+    // console.log(this.listCollection);
   }
 
   // Creating new list
@@ -402,6 +425,9 @@ class App {
 
     // Render list title contents
     this._renderListTitle(this.curList);
+
+    // Render w/ correct styling
+    this._renderListColour();
 
     console.log(`curList:`, newList);
     console.log(`LC`, this.listCollection);
@@ -472,10 +498,50 @@ class App {
   }
 
   // RENDERS
+
+  // React - like update algo
+  update(data, parentEl) {
+    // this._data = data;
+
+    const newMarkup = this._generateListPreviewMarkup(data);
+    const newDOM = document.createRange().createContextualFragment(newMarkup);
+    const newElements = Array.from(newDOM.querySelectorAll("*"));
+
+    const curElements = Array.from(parentEl.querySelectorAll("*"));
+
+    console.log(`new`, newElements);
+    console.log(`cur`, curElements);
+    // Looping over both arrays at the same time
+    newElements.forEach((newEl, i) => {
+      const curEl = curElements[i];
+
+      // Updates changed TEXT
+      if (
+        !newEl.isEqualNode(curEl) &&
+        newEl.firstChild?.nodeValue.trim() !== ""
+      ) {
+        curEl.textContent = newEl.textContent;
+      }
+
+      if (!newEl.isEqualNode(curEl)) {
+        Array.from(newEl.attributes).forEach((attr) =>
+          curEl.setAttribute(attr.name, attr.value)
+        );
+      }
+    });
+    console.log(`hello`);
+  }
+
   // Rendering lists stored in local storage on loadup
   _renderStorage() {
     this._messageChecker();
     this.listCollection.forEach((list) => this._renderListPreviewMarkup(list));
+  }
+
+  // Render list colour - colour line & colour picker button
+  _renderListColour() {
+    listColour.style.backgroundColor = this.curList.colour;
+    colourPickerBtn.style.backgroundColor = this.curList.colour;
   }
 
   // Rendering list preview
@@ -552,7 +618,7 @@ class App {
     return `
     <div class="form hidden">
       <form class="change-list-title-form">
-          <input class="input-list-title" required type="text" maxlength="20" placeholder="(max 20 characters)" name="list-title" >
+          <input class="input-list-title" required  type="text" maxlength="20" placeholder="(max 20 characters)" name="list-title" >
           <input class="input-list-title-btn" type="submit" value="Done">
       </form>
     </div>

@@ -563,7 +563,7 @@ body {
   position: absolute;
   height: 20rem;
   width: 20rem;
-  z-index: 20;
+  z-index: 21;
   border-radius: 20px;
   background-image: linear-gradient(
     to right bottom,
@@ -674,7 +674,7 @@ body {
   background-color: rgba(0, 0, 0, 0.582);
   background-repeat: no-repeat;
   backdrop-filter: blur();
-  z-index: 21;
+  z-index: 15;
 }
 
 .form-container {
