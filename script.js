@@ -8,17 +8,19 @@ const listTitleParent = document.querySelector(".list-title");
 const listColour = document.querySelector(".colour-line");
 const listOptionsContainer = document.querySelector(".list-options");
 const overlay = document.querySelector(".overlay");
+const formContainer = document.querySelector(".form-container");
+const form = document.querySelector(".new-list-item-form");
+const successMessage = document.querySelector(".success-message");
+const listItemsParent = document.querySelector(".list-items");
 
 const newListBtn = document.querySelector(".new-list-btn");
 const colourPickerBtn = document.querySelector(".list-colour-btn");
+const cancelFormBtn = document.querySelector(".cancel-btn");
 
 // OLD
 
-const listItemsParent = document.querySelector(".list-items");
-const successMessage = document.querySelector(".success-message");
 const listColourContainer = document.querySelector(".list-colour-options");
 
-const formContainer = document.querySelector(".form-container");
 const deleteListConfirmation = document.querySelector(".delete-list-message");
 
 const listHeading = document.querySelector(".unique-heading");
@@ -29,8 +31,6 @@ const itemDueDateInput = document.querySelector(".due-date");
 const itemTimeDueInput = document.querySelector(".time-due");
 const itemDescriptionInput = document.querySelector(".description");
 const itemPriorityInput = document.querySelector(".priority");
-
-const formCont = document.querySelector(".new-list-item-form");
 
 // ////// CODE
 
@@ -164,74 +164,38 @@ function renderList(listObj) {
 }
 // renderList(listCollection.lists[0]);
 
-// Message un-hidden when form is submitted
-const hideSuccessMessage = function () {
-  setTimeout(() => successMessage.classList.add("hidden"), 700);
-};
-
-noListMessage.addEventListener("click", hideSuccessMessage);
-
-// overlay.addEventListener("click", toggleModal);
-
-// CHANGING LIST COLOUR
-function listColourPicker(event) {
-  return (buttonColour = event.dataset.colour);
-}
-
-function changeColour(colCode, curList) {
-  listColour.style.backgroundColor = colCode;
-  colourPickerBtn.style.backgroundColor = colCode;
-  curList.colour = colCode;
-  console.log(curList);
-}
-
-// OVERLAY & MODAL WINDOW
-// open
-function toggleModal(modal) {
-  overlay.classList.toggle("hidden");
-  modal.classList.toggle("hidden");
-}
-// // close
-// function closeModal(modal) {
-//   overlay.classList.add("hidden");
-//   modal.classList.add("hidden");
-// }
-
 // ///// CLASSES
 
 class List {
   id = (Date.now() + "").slice(-10);
+  listItems = new Array();
 
   // constructor function is what is responsible for creating the new object based on this class -> fired whenever you want to create a new list object
   constructor() {
     this.listTitle = "Untitled list";
     this.colour = "var(--grey-theme)";
-    this.listItems = [];
-
-    this.addListItem();
-    // this.removeListItem();
   }
 
-  changeListTitle(newTitle) {
-    this.listTitle = newTitle;
-  }
+  // changeListTitle(newTitle) {
+  //   this.listTitle = newTitle;
+  // }
 
-  addListItem(itemObj) {
-    // console.log(this);
-    this.listItems.push(itemObj);
-  }
+  // addListItem(itemObj) {
+  //   // console.log(this);
+  //   this.listItems.push(itemObj);
+  // }
 
-  removeListItem(itemObj) {
-    // item from array where who's id matches the id of itemObj must be deleted. Filter array if id doesnt match id of itemObj.
-    const idToRemove = itemObj.id;
-    this.listItems = this.listItems.filter((item) => item.id !== idToRemove);
-    console.log(`remove`, this.listItems);
-    console.log(this);
-  }
+  // removeListItem(itemObj) {
+  //   // item from array where who's id matches the id of itemObj must be deleted. Filter array if id doesnt match id of itemObj.
+  //   const idToRemove = itemObj.id;
+  //   this.listItems = this.listItems.filter((item) => item.id !== idToRemove);
+  //   console.log(`remove`, this.listItems);
+  //   console.log(this);
+  // }
 
-  changeColour(colCode) {
-    this.colour = colCode;
-  }
+  // changeColour(colCode) {
+  //   this.colour = colCode;
+  // }
 }
 
 const q = {
@@ -249,29 +213,17 @@ const q = {
 // - sets value of 'this' to new empty object. Use 'this' to set new properties to the instances
 // - calls the constructor method
 
-let list1 = new List();
-
-const z = {
-  id: "123456781",
-  listTitle: "My first List",
-  colour: "var(--bright-theme)",
-  listItems: [listItemData1, listItemData2, listItemData3],
-};
-// 1620138352117
-
 class ListItem {
   id = (Date.now() + "").slice(-10);
 
   constructor(title, dueDate, timeDue, description, priority) {
-    this.itemtitle = itemNameInput.value;
-    this.dueDate = itemDueDateInput.value;
-    this.timeDue = itemTimeDueInput.value;
-    this.description = itemDescriptionInput.value;
-    this.priority = itemPriorityInput.value;
+    this.itemTitle = title;
+    this.dueDate = dueDate;
+    this.timeDue = timeDue;
+    this.description = description;
+    this.priority = priority;
     this.completed = false;
   }
-
-  convertPri(pri) {}
 }
 
 function clearForm() {
@@ -281,30 +233,15 @@ function clearForm() {
     itemTimeDueInput.value =
     itemDescriptionInput.value =
       "";
-  // Makes sure default pri always "no priority"
+
+  // Ensure default pri always "no priority"
   itemPriorityInput.value = "no_pri";
 }
-
-formCont.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const listItem = new ListItem();
-  console.log(listItem);
-  // formCont.reset();
-  list1.addListItem(listItem);
-  console.log(list1);
-  clearForm();
-});
-
-// itemNameInput.value || "Untitled List"
-// itemDueDateInput.value;
-// itemTimeDueInput.value
-// itemDescriptionInput.value
-// itemPriorityInput.value
 
 class App {
   curList = 1;
   listInLC;
-  listCollection = [];
+  listCollection = [fullList1, fullList2];
 
   constructor() {
     this._renderStorage();
@@ -327,9 +264,48 @@ class App {
       "click",
       this._listInteractions.bind(this)
     );
+
+    form.addEventListener("submit", this._createNewListItem.bind(this));
   }
 
   // //METHODS
+
+  _createNewListItem(e) {
+    e.preventDefault();
+
+    const itemName = itemNameInput.value;
+    const dueDate = itemDueDateInput.value;
+    const timeDue = itemTimeDueInput.value;
+    const description = itemDescriptionInput.value;
+    const priority = itemPriorityInput.value;
+
+    console.log(`duedate`);
+
+    // Creating new listItem Obj
+    const listItem = new ListItem(
+      itemName,
+      dueDate,
+      timeDue,
+      description,
+      priority
+    );
+
+    this.listCollection[this._findObjectAlgo()].listItems.push(listItem);
+    console.log(`listcoll`, this.listCollection);
+
+    // Clears input fields
+    this._clearForm();
+
+    this._renderListItem(listItem);
+
+    // Shows and hides success message
+    successMessage.classList.remove("hidden");
+    setTimeout(function () {
+      successMessage.classList.add("hidden");
+    }, 750);
+
+    console.log(listItem);
+  }
 
   _listInteractions(e) {
     const button = e.target.closest("button");
@@ -347,10 +323,36 @@ class App {
 
     //   Add item button
     if (button.classList.contains("add-item-btn")) {
+      this._showOverlayAndModal(formContainer);
+
+      // Event listener to hide form when background/cancel btn clicked
+      [overlay, cancelFormBtn].forEach((btn) =>
+        btn.addEventListener("click", () => {
+          this._hideOverlayAndModal(formContainer);
+        })
+      );
+
+      // ["click", "submit"].forEach((ev) =>
+      //   formContainer.addEventListener(ev, this._formHandler)
+      // );
     }
     //   Delete List button
     if (button.classList.contains("delete-list-btn")) {
     }
+  }
+
+  _formHandler(e) {
+    console.log(e.target);
+  }
+  _clearForm() {
+    // Clears input fields
+    itemNameInput.value =
+      itemDueDateInput.value =
+      itemTimeDueInput.value =
+      itemDescriptionInput.value =
+        "";
+    // Makes sure default pri always "no priority"
+    itemPriorityInput.value = "no_pri";
   }
 
   // Called when list colour btn pressed
@@ -359,27 +361,31 @@ class App {
     // overlay.style.opacity = 0;
   }
   _changeListColourOptions(btn) {
+    // colour code obtained from button dataset
     const buttonColour = btn.dataset.colour;
-    //     changeColour(buttonColour, fullList1);
-    // const buttonColour = e.target;
 
+    // Mutating object in LC & changing curList obj
     this.listCollection[this._findObjectAlgo()].colour = buttonColour;
     this.curList = this.listCollection[this._findObjectAlgo()];
-    // this.update( this.curList, listPreviewsParent);
+
+    // Selecting corresponding list preview element's colour line & setting colour
     const curListPreview = listPreviewsParent.querySelector(
       `[data-listID = '${this.curList.id}']`
     ).firstElementChild;
     curListPreview.style.backgroundColor = buttonColour;
-    // console.log(curListPreview);
+
+    // Re-render List view
     this._renderListColour();
   }
 
-  _showOverlay() {
+  _showOverlayAndModal(modal) {
     overlay.classList.remove("hidden");
+    modal.classList.remove("hidden");
   }
 
-  _hideOverlay() {
+  _hideOverlayAndModal(modal) {
     overlay.classList.add("hidden");
+    modal.classList.add("hidden");
   }
 
   _changeCurList(e) {
@@ -391,7 +397,6 @@ class App {
     )[0];
 
     this._showList();
-    // this._renderListPreviewMarkup(this.curList);
 
     // Render list title contents
     this._renderListTitle(this.curList);
@@ -544,6 +549,12 @@ class App {
     colourPickerBtn.style.backgroundColor = this.curList.colour;
   }
 
+  _renderListItem(listItem) {
+    const html = this._generateListItemMarkup(listItem);
+
+    listItemsParent.insertAdjacentHTML("afterbegin", html);
+  }
+
   // Rendering list preview
   _renderListPreviewMarkup(list) {
     const html = this._generateListPreviewMarkup(list);
@@ -571,7 +582,7 @@ class App {
 
   // Create item markup
   _generateListItemMarkup(data) {
-    return `
+    let html = `
       <div class="full-list-item" data-id=${data.id}>
   
         <div class="list-item ${data.priority}">
@@ -594,23 +605,46 @@ class App {
   
         </div>
   
-        <div class="list-additional-info ">
-          <p class="extra-info">
-            <span>Description: </span>
-              ${data.description}
-          </p>
-          <p class="extra-info">
-            <span>Due date: </span>
-              ${data.dueDate}
-          </p>
-          <p class="extra-info">
-            <span>Time due: </span>
-              ${data.timeDue}
-          </p>
-        </div>
-  
-      </div>
-      `;
+        <div class="list-additional-info ">`;
+
+    if (data.description)
+      html += `<p class="extra-info">
+              <span>Description: </span>
+                 ${data.description}
+             </p>`;
+    if (data.dueDate)
+      html += `<p class="extra-info">
+              <span>Due Date: </span>
+                 ${data.dueDate}
+             </p>`;
+    if (data.timeDue)
+      html += `<p class="extra-info">
+              <span>Time Due: </span>
+                 ${data.timeDue}
+             </p>`;
+
+    html += `</div>
+
+              </div>`;
+
+    return html;
+
+    //     <p class="extra-info">
+    //       <span>Description: </span>
+    //         ${data.description}
+    //     </p>
+    //     <p class="extra-info">
+    //       <span>Due date: </span>
+    //         ${data.dueDate}
+    //     </p>
+    //     <p class="extra-info">
+    //       <span>Time due: </span>
+    //         ${data.timeDue}
+    //     </p>
+    //   </div>
+
+    // </div>
+    // ;
   }
 
   // Create list title markup
