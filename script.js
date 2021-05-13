@@ -12,6 +12,7 @@ const formContainer = document.querySelector(".form-container");
 const form = document.querySelector(".new-list-item-form");
 const successMessage = document.querySelector(".success-message");
 const listItemsParent = document.querySelector(".list-items");
+const activeClass = document.querySelector(".list-element, .active");
 
 const newListBtn = document.querySelector(".new-list-btn");
 const colourPickerBtn = document.querySelector(".list-colour-btn");
@@ -71,7 +72,7 @@ const fullList1 = {
   id: "123456781",
   listTitle: "My first List",
   colour: "var(--bright-theme)",
-  listItems: [listItemData1, listItemData2, listItemData3],
+  listItems: [],
 };
 
 const fullList2 = {
@@ -226,18 +227,6 @@ class ListItem {
   }
 }
 
-function clearForm() {
-  // Clears input fields
-  itemNameInput.value =
-    itemDueDateInput.value =
-    itemTimeDueInput.value =
-    itemDescriptionInput.value =
-      "";
-
-  // Ensure default pri always "no priority"
-  itemPriorityInput.value = "no_pri";
-}
-
 class App {
   curList = 1;
   listInLC;
@@ -390,21 +379,103 @@ class App {
 
   _changeCurList(e) {
     const targetID = e.target.dataset.listid;
-    console.log(`IT`, targetID);
+
+    let prevSelectedEle; // let prevListPreview;
+    // if (this.curList !== 1) {
+    //   prevListPreview = listPreviewsParent.querySelector(
+    //     `[data-listID = '${curListID}']`
+    //   );
+    // }
     if (!targetID) return;
-    this.curList = this.listCollection.filter(
-      (list) => list.id === targetID
-    )[0];
 
-    this._showList();
+    if (this.curList !== 1)
+      prevSelectedEle = listPreviewsParent.querySelector(
+        `[data-listID = '${this.curList.id}']`
+      );
 
-    // Render list title contents
-    this._renderListTitle(this.curList);
-    this._renderListColour();
+    if (this.curList.id !== targetID) {
+      // 1. Set curList to clicked element
+      this.curList = this.listCollection.filter(
+        (list) => list.id === targetID
+      )[0];
+
+      listPreviewsParent
+        .querySelectorAll(".list-element")
+        .forEach((ele) => ele.classList.remove("active"));
+
+      if (prevSelectedEle) {
+        prevSelectedEle.style.border = "none";
+        prevSelectedEle.classList.remove("active");
+      }
+
+      const selectedEle = listPreviewsParent.querySelector(
+        `[data-listID = '${this.curList.id}']`
+      );
+      console.log(selectedEle);
+      selectedEle.classList.add("active");
+      selectedEle.style.border = `${this.curList.colour} 2px solid`;
+      // selectedEle.style.backgroundColor = `white`;
+
+      // 2. Show the list
+      this._showList();
+
+      // Render list title contents
+      this._renderListTitle(this.curList);
+      this._renderListColour();
+
+      // Clering any prev list contents
+      listItemsParent.innerHTML = "";
+
+      //  Rendering curList list contents
+      if (this.listCollection[this._findObjectAlgo()].listItems.length > 0) {
+        this.listCollection[this._findObjectAlgo()].listItems.forEach((item) =>
+          this._renderListItem(item)
+        );
+      }
+
+      // listPreviewsParent
+      //   .querySelectorAll(".list-element")
+      //   .forEach((ele) => (ele.style.border = "none"));
+
+      // prevListPreview = listPreviewsParent.querySelector(
+      //   `[data-listID = '${targetID}']`
+      // );
+      // prevListPreview.classList.toggle("active");
+      // activeClass.style.border = `${this.curList.colour} 2px solid`;
+      // console.log(activeClass);
+
+      // const curElement = listPreviewsParent.querySelector(
+      //   `[data-listID = '${curListID}']`
+      // );
+
+      if (targetID === this.curList.id) {
+        // curElement.style.border = `${this.curList.colour} 2px solid`;
+        return;
+      }
+      // console.log(`TARGET ID`, targetID);
+      // console.log(`prev`, prevListPreview);
+
+      // if (targetID === curListID) {
+      //   listPreviewsParent.querySelector(
+      //     `[data-listID = '${curListID}']`
+      //   ).style.backgroundColor = `${this.curList.colour}`;
+      //   console.log(`hello`);
+      // }
+      // if (this.curList !== 1) prevListPreview.classList.remove(".active");
+
+      // const newListPreview = listPreviewsParent.querySelector(
+      //   `[data-listID = '${this.curList.id}']`
+      // );
+      // newListPreview.classList.toggle("active");
+
+      // this._addActiveClass();
+    }
 
     // console.log(`cur:`, this.curList);
     // console.log(this.listCollection);
   }
+
+  _returnSelectedPreview(data) {}
 
   // Creating new list
   _addNewList(e) {
@@ -423,6 +494,8 @@ class App {
 
     // Setting current List to created list
     this.curList = newList;
+
+    // this._changeCurList();
 
     // Removing message and rendering list preview
     this._messageChecker();
@@ -483,6 +556,12 @@ class App {
 
     // console.log(foundID);
   }
+
+  // Adding active class to list preview
+  // _addActiveClass() {
+  //   if (listPreviewsParent.childNodes.contains("active"))
+  //     console.log(`children`);
+  // }
 
   // Hiding and showing right hand side list.
   _showList() {
@@ -621,6 +700,11 @@ class App {
       html += `<p class="extra-info">
               <span>Time Due: </span>
                  ${data.timeDue}
+             </p>`;
+
+    if (!data.description && !data.dueDate && !data.timeDue)
+      html += `<p class="extra-info">
+              <span>No additional information added </span>
              </p>`;
 
     html += `</div>
