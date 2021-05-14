@@ -72,7 +72,7 @@ const fullList1 = {
   id: "123456781",
   listTitle: "My first List",
   colour: "var(--bright-theme)",
-  listItems: [],
+  listItems: [listItemData1, listItemData2],
 };
 
 const fullList2 = {
@@ -124,28 +124,7 @@ listItemsParent.addEventListener("click", function (e) {
 
 // LIST OPTIONS BUTTONS
 // listOptionsContainer.addEventListener("click", function (e) {
-//   const button = e.target.closest("button");
-//   //   let buttonColour;
-//   // console.log(button);
-
-//   if (!button) return;
-
-//   //   List colour button
-//   if (button.classList.contains("list-colour-btn"))
-//     listColourContainer.classList.toggle("hidden");
-
-//   if (button.classList.contains("colour-option")) {
-//     const buttonColour = listColourPicker(button);
-//     changeColour(buttonColour, fullList1);
-//   }
-
-//   //   Add item button
-//   if (button.classList.contains("add-item-btn")) {
-//     // toggleModal(formContainer);
-//     console.log(generateListItemMarkup(listItemData1));
-//     generateListItemMarkup(listItemData2);
-//     generateListItemMarkup(listItemData3);
-//   }
+//
 //   //   Delete List button
 //   if (button.classList.contains("delete-list-btn")) {
 //     toggleModal(deleteListConfirmation);
@@ -154,18 +133,20 @@ listItemsParent.addEventListener("click", function (e) {
 
 // ///////// FUNCTIONS
 
-// Render info from list object
-function renderList(listObj) {
-  // console.log(`RenderList:`, listObj);
-  // console.log(`list items:`, listObj.listItems);
-  const listItems = listObj.listItems;
-  listItems.forEach((item) => generateListItemMarkup(item));
-  // listHeading.innerHTML = `${listObj.listTitle}`;
-  // generateListItemMarkup(listObj);
-}
-// renderList(listCollection.lists[0]);
-
 // ///// CLASSES
+
+class ListItem {
+  id = (Date.now() + "").slice(-10);
+
+  constructor(title, dueDate, timeDue, description, priority) {
+    this.itemTitle = title;
+    this.dueDate = dueDate;
+    this.timeDue = timeDue;
+    this.description = description;
+    this.priority = priority;
+    this.completed = false;
+  }
+}
 
 class List {
   id = (Date.now() + "").slice(-10);
@@ -176,27 +157,6 @@ class List {
     this.listTitle = "Untitled list";
     this.colour = "var(--grey-theme)";
   }
-
-  // changeListTitle(newTitle) {
-  //   this.listTitle = newTitle;
-  // }
-
-  // addListItem(itemObj) {
-  //   // console.log(this);
-  //   this.listItems.push(itemObj);
-  // }
-
-  // removeListItem(itemObj) {
-  //   // item from array where who's id matches the id of itemObj must be deleted. Filter array if id doesnt match id of itemObj.
-  //   const idToRemove = itemObj.id;
-  //   this.listItems = this.listItems.filter((item) => item.id !== idToRemove);
-  //   console.log(`remove`, this.listItems);
-  //   console.log(this);
-  // }
-
-  // changeColour(colCode) {
-  //   this.colour = colCode;
-  // }
 }
 
 const q = {
@@ -213,19 +173,6 @@ const q = {
 // - creates new empty object
 // - sets value of 'this' to new empty object. Use 'this' to set new properties to the instances
 // - calls the constructor method
-
-class ListItem {
-  id = (Date.now() + "").slice(-10);
-
-  constructor(title, dueDate, timeDue, description, priority) {
-    this.itemTitle = title;
-    this.dueDate = dueDate;
-    this.timeDue = timeDue;
-    this.description = description;
-    this.priority = priority;
-    this.completed = false;
-  }
-}
 
 class App {
   curList = 1;
@@ -360,8 +307,9 @@ class App {
     // Selecting corresponding list preview element's colour line & setting colour
     const curListPreview = listPreviewsParent.querySelector(
       `[data-listID = '${this.curList.id}']`
-    ).firstElementChild;
-    curListPreview.style.backgroundColor = buttonColour;
+    );
+    curListPreview.style.border = `${buttonColour} 2px solid`;
+    curListPreview.firstElementChild.style.backgroundColor = buttonColour;
 
     // Re-render List view
     this._renderListColour();
@@ -380,12 +328,8 @@ class App {
   _changeCurList(e) {
     const targetID = e.target.dataset.listid;
 
-    let prevSelectedEle; // let prevListPreview;
-    // if (this.curList !== 1) {
-    //   prevListPreview = listPreviewsParent.querySelector(
-    //     `[data-listID = '${curListID}']`
-    //   );
-    // }
+    let prevSelectedEle;
+
     if (!targetID) return;
 
     if (this.curList !== 1)
@@ -408,13 +352,12 @@ class App {
         prevSelectedEle.classList.remove("active");
       }
 
+      // Current list preview selected - adding active class and creating border colour
       const selectedEle = listPreviewsParent.querySelector(
         `[data-listID = '${this.curList.id}']`
       );
-      console.log(selectedEle);
       selectedEle.classList.add("active");
       selectedEle.style.border = `${this.curList.colour} 2px solid`;
-      // selectedEle.style.backgroundColor = `white`;
 
       // 2. Show the list
       this._showList();
@@ -433,52 +376,27 @@ class App {
         );
       }
 
-      // listPreviewsParent
-      //   .querySelectorAll(".list-element")
-      //   .forEach((ele) => (ele.style.border = "none"));
-
-      // prevListPreview = listPreviewsParent.querySelector(
-      //   `[data-listID = '${targetID}']`
-      // );
-      // prevListPreview.classList.toggle("active");
-      // activeClass.style.border = `${this.curList.colour} 2px solid`;
-      // console.log(activeClass);
-
-      // const curElement = listPreviewsParent.querySelector(
-      //   `[data-listID = '${curListID}']`
-      // );
-
       if (targetID === this.curList.id) {
         // curElement.style.border = `${this.curList.colour} 2px solid`;
         return;
       }
-      // console.log(`TARGET ID`, targetID);
-      // console.log(`prev`, prevListPreview);
-
-      // if (targetID === curListID) {
-      //   listPreviewsParent.querySelector(
-      //     `[data-listID = '${curListID}']`
-      //   ).style.backgroundColor = `${this.curList.colour}`;
-      //   console.log(`hello`);
-      // }
-      // if (this.curList !== 1) prevListPreview.classList.remove(".active");
-
-      // const newListPreview = listPreviewsParent.querySelector(
-      //   `[data-listID = '${this.curList.id}']`
-      // );
-      // newListPreview.classList.toggle("active");
-
-      // this._addActiveClass();
     }
-
-    // console.log(`cur:`, this.curList);
-    // console.log(this.listCollection);
   }
 
   _returnSelectedPreview(data) {}
 
   // Creating new list
   _addNewList(e) {
+    let prevSelectedEle;
+
+    // Removes active styling of prev preview
+    if (this.curList !== 1) {
+      prevSelectedEle = listPreviewsParent.querySelector(
+        `[data-listID = '${this.curList.id}']`
+      );
+      prevSelectedEle.classList.remove("active");
+      prevSelectedEle.style.border = "none";
+    }
     // 1. Create new List object
     // 2. Show Right screen if hidden
     //  2.1 Render title
@@ -495,18 +413,22 @@ class App {
     // Setting current List to created list
     this.curList = newList;
 
-    // this._changeCurList();
-
     // Removing message and rendering list preview
     this._messageChecker();
     this._renderListPreviewMarkup(newList);
 
+    let selectedEle = listPreviewsParent.querySelector(
+      `[data-listID = '${newList.id}']`
+    );
+    console.log(selectedEle);
+    selectedEle.classList.add("active");
     // Render list title contents
     this._renderListTitle(this.curList);
 
     // Render w/ correct styling
     this._renderListColour();
 
+    listItemsParent.innerHTML = "";
     console.log(`curList:`, newList);
     console.log(`LC`, this.listCollection);
   }
@@ -575,9 +497,9 @@ class App {
     listViewExpanded.classList.add("hidden");
   }
 
-  // Determines if message should be displayed or not
+  // Determines if 'no-lists' message should be displayed or not
   _messageChecker() {
-    if (this.listCollection.length > 0) noListMessage.classList.add("hidden");
+    if (this.listCollection.length > 0) noListMessage.remove();
     // console.log(`heelo`);
   }
 

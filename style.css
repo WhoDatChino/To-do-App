@@ -124,6 +124,7 @@ body {
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
+  padding-top: 12px;
 }
 
 /* List element */
@@ -143,7 +144,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  transition: all 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
 }
 .list-element {
   cursor: pointer;
@@ -159,7 +160,7 @@ body {
   border-left: none;
   box-shadow: 3px 3px 15px rgb(109, 109, 109);
   background-color: white;
-  /* background-color: blue; */
+  transform: scale(1.04);
 }
 
 .list-previews :first-child {
@@ -193,9 +194,7 @@ body {
   color: var(--purple-branding);
   transition: all 250ms ease-out;
 }
-.new-list-btn :hover {
-  transform: scale(1.17);
-}
+
 .add-new-list .new-list-btn {
   border-radius: 50%;
   background-color: rgba(128, 128, 128, 0);
@@ -551,9 +550,6 @@ body {
   font-size: 4.3rem;
   color: var(--purple-branding);
   transition: all 250ms ease-out;
-}
-.add-item-btn :hover {
-  transform: scale(1.17);
 }
 
 .list-options .list-colour-btn {
