@@ -13,16 +13,17 @@ const form = document.querySelector(".new-list-item-form");
 const successMessage = document.querySelector(".success-message");
 const listItemsParent = document.querySelector(".list-items");
 const activeClass = document.querySelector(".list-element, .active");
+const deleteListConfirmation = document.querySelector(".delete-list-message");
 
 const newListBtn = document.querySelector(".new-list-btn");
 const colourPickerBtn = document.querySelector(".list-colour-btn");
 const cancelFormBtn = document.querySelector(".cancel-btn");
+const cancelListDelBtn = document.querySelector(".cancel-delete");
+const deleteListBtn = document.querySelector(".delete-btn");
 
 // OLD
 
 const listColourContainer = document.querySelector(".list-colour-options");
-
-const deleteListConfirmation = document.querySelector(".delete-list-message");
 
 const listHeading = document.querySelector(".unique-heading");
 
@@ -267,19 +268,58 @@ class App {
           this._hideOverlayAndModal(formContainer);
         })
       );
-
-      // ["click", "submit"].forEach((ev) =>
-      //   formContainer.addEventListener(ev, this._formHandler)
-      // );
     }
     //   Delete List button
     if (button.classList.contains("delete-list-btn")) {
+      this._showOverlayAndModal(deleteListConfirmation);
+
+      [overlay, cancelListDelBtn, deleteListBtn].forEach((btn) =>
+        btn.addEventListener("click", () => {
+          this._hideOverlayAndModal(deleteListConfirmation);
+        })
+      );
+
+      deleteListBtn.addEventListener("click", this._deleteList.bind(this));
+
+      console.log(button);
     }
   }
 
-  _formHandler(e) {
-    console.log(e.target);
+  _deleteList() {
+    // this._hideOverlayAndModal(deleteListConfirmation);
+    const listToBeDeleted = listPreviewsParent.querySelector(
+      `[data-listID = '${this.curList.id}']`
+    );
+
+    if (this.listCollection.length === 0) return;
+
+    // Add animation and transistion classes
+    listToBeDeleted.classList.add("filling");
+    listToBeDeleted.classList.add("removing");
+    this._hideList();
+
+    listToBeDeleted.addEventListener(
+      "animationend",
+      function () {
+        // Removing DOM elements
+        listToBeDeleted.remove();
+
+        // Displaying no lists message if needed
+        this._messageChecker();
+      }.bind(this)
+    );
+
+    // listToBeDeleted.firstElementChild.style.width = `100%`;
+    // listToBeDeleted.lastElementChild.remove();
+
+    // Create new list collection w/o deleted list
+    this.listCollection = this.listCollection.filter(
+      (list) => list.id !== this.curList.id
+    );
+
+    this.curList = 1;
   }
+
   _clearForm() {
     // Clears input fields
     itemNameInput.value =
@@ -499,7 +539,9 @@ class App {
 
   // Determines if 'no-lists' message should be displayed or not
   _messageChecker() {
-    if (this.listCollection.length > 0) noListMessage.remove();
+    this.listCollection.length > 0
+      ? noListMessage.classList.add("hidden")
+      : noListMessage.classList.remove("hidden");
     // console.log(`heelo`);
   }
 
@@ -634,23 +676,6 @@ class App {
               </div>`;
 
     return html;
-
-    //     <p class="extra-info">
-    //       <span>Description: </span>
-    //         ${data.description}
-    //     </p>
-    //     <p class="extra-info">
-    //       <span>Due date: </span>
-    //         ${data.dueDate}
-    //     </p>
-    //     <p class="extra-info">
-    //       <span>Time due: </span>
-    //         ${data.timeDue}
-    //     </p>
-    //   </div>
-
-    // </div>
-    // ;
   }
 
   // Create list title markup
@@ -674,4 +699,3 @@ class App {
 }
 
 const a = new App();
-// a._generateListPreviewMarkup();

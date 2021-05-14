@@ -144,7 +144,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  transition: transform 100ms ease-in-out;
+  /* transition: transform 100ms ease-in-out; */
 }
 .list-element {
   cursor: pointer;
@@ -178,6 +178,30 @@ body {
   width: 0.75rem;
   background-color: var(--grey-theme);
   pointer-events: none;
+}
+
+.list-element.removing {
+  animation: fill-and-shrink 1.5s ease-in-out 700ms;
+}
+
+@keyframes fill-and-shrink {
+  90% {
+    opacity: 0;
+  }
+  100% {
+    max-height: 0;
+    min-height: 0;
+    opacity: 0;
+  }
+}
+
+.list-element.filling .colour-line {
+  transition: width ease-in-out 700ms;
+  width: 100%;
+}
+.list-element.filling h2 {
+  transition: font-size ease-in-out 700ms;
+  font-size: 0;
 }
 
 /* New list button */
