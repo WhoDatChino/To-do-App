@@ -91,37 +91,37 @@ const fullList3 = {
 };
 
 // LIST ITEM EVENTS
-listItemsParent.addEventListener("click", function (e) {
-  // console.log(e.target);
-  const target = e.target;
-  const listItemWrapper = target.closest(".full-list-item");
-  const itemID = target.closest(".full-list-item").dataset.id;
-  const extraInfoBtn = listItemWrapper.querySelector(".expand-item-btn");
-  const extraInfoDiv = listItemWrapper.querySelector(".list-additional-info");
-  const listItemCheck = listItemWrapper.querySelector(".check");
-  const listItem = listItemWrapper.querySelector(".list-item");
-  // console.log(itemID);
-  // console.log(listItemWrapper);
+// listItemsParent.addEventListener("click", function (e) {
+//   // console.log(e.target);
+//   const target = e.target;
+//   const listItemWrapper = target.closest(".full-list-item");
+//   const itemID = target.closest(".full-list-item").dataset.id;
+//   const extraInfoBtn = listItemWrapper.querySelector(".expand-item-btn");
+//   const extraInfoDiv = listItemWrapper.querySelector(".list-additional-info");
+//   const listItemCheck = listItemWrapper.querySelector(".check");
+//   const listItem = listItemWrapper.querySelector(".list-item");
+//   // console.log(itemID);
+//   // console.log(listItemWrapper);
 
-  // Expanding and contracting additional info div
-  if (target.classList[0] === "expand-item-btn") {
-    extraInfoDiv.classList[1] === "expanded"
-      ? (extraInfoDiv.classList.remove("expanded"),
-        (extraInfoBtn.style.transform = "rotate(0deg)"))
-      : (extraInfoDiv.classList.add("expanded"),
-        (extraInfoBtn.style.transform = "rotate(180deg)"));
-  }
+//   // Expanding and contracting additional info div
+//   if (target.classList[0] === "expand-item-btn") {
+//     extraInfoDiv.classList[1] === "expanded"
+//       ? (extraInfoDiv.classList.remove("expanded"),
+//         (extraInfoBtn.style.transform = "rotate(0deg)"))
+//       : (extraInfoDiv.classList.add("expanded"),
+//         (extraInfoBtn.style.transform = "rotate(180deg)"));
+//   }
 
-  // Deleting list item
-  if (target.classList[0] === "delete-item-btn") {
-    listItemWrapper.remove();
-  }
+//   // Deleting list item
+//   if (target.classList[0] === "delete-item-btn") {
+//     listItemWrapper.remove();
+//   }
 
-  // Completing an item
-  listItemCheck.checked
-    ? listItem.classList.add("completed")
-    : listItem.classList.remove("completed");
-});
+//   // Completing an item
+//   listItemCheck.checked
+//     ? listItem.classList.add("completed")
+//     : listItem.classList.remove("completed");
+// });
 
 // LIST OPTIONS BUTTONS
 // listOptionsContainer.addEventListener("click", function (e) {
@@ -137,7 +137,7 @@ listItemsParent.addEventListener("click", function (e) {
 // ///// CLASSES
 
 class ListItem {
-  id = (Date.now() + "").slice(-10);
+  id = +(Date.now() + "").slice(-10);
 
   constructor(title, dueDate, timeDue, description, priority) {
     this.itemTitle = title;
@@ -203,9 +203,71 @@ class App {
     );
 
     form.addEventListener("submit", this._createNewListItem.bind(this));
+
+    listItemsParent.addEventListener(
+      "click",
+      this._itemInteractions.bind(this)
+    );
   }
 
   // //METHODS
+
+  _itemInteractions(e) {
+    const target = e.target;
+    const itemID = +target.closest(".full-list-item").dataset.id;
+    const listItemWrapper = listItemsParent.querySelector(
+      `[data-id = '${itemID}']`
+    );
+    let selectedListItemIndex = this.curList.listItems.findIndex(
+      (item) => item.id === itemID
+    );
+    const extraInfoBtn = listItemWrapper.querySelector(".expand-item-btn");
+    const extraInfoDiv = listItemWrapper.querySelector(".list-additional-info");
+    const listItemCheck = listItemWrapper.querySelector(".check");
+    const listItem = listItemWrapper.querySelector(".list-item");
+    // console.log(itemID);
+    // console.log(target);
+    // console.log(itemID);
+    // console.log(listItemWrapper);
+    // console.log(`sel`, selectedListItemIndex);
+    // console.log(`curList.items`, this.curList.listItems);
+    // console.log(`itemID`, itemID);
+
+    // Expanding and contracting additional info div
+    if (target.classList[0] === "expand-item-btn") {
+      extraInfoDiv.classList[1] === "expanded"
+        ? (extraInfoDiv.classList.remove("expanded"),
+          (extraInfoBtn.style.transform = "rotate(0deg)"))
+        : (extraInfoDiv.classList.add("expanded"),
+          (extraInfoBtn.style.transform = "rotate(180deg)"));
+    }
+
+    // Deleting list item
+    if (target.classList[0] === "delete-item-btn") {
+      // Mutating the list object & restting it in the list collection
+      this.curList.listItems = this.curList.listItems.filter(
+        (item) => item.id !== itemID
+      );
+      this.listCollection[this._findObjectAlgo()] = this.curList;
+      console.log(this.listCollection);
+
+      // Removing item from dom w/ animation
+      listItemWrapper.classList.add("deleting");
+      listItemWrapper.addEventListener("transitionend", function () {
+        listItemWrapper.remove();
+        console.log(`hello`);
+      });
+    }
+
+    // Completing an item - changes property on list item object and reflects that across listCollection
+    listItemCheck.checked
+      ? (listItem.classList.add("completed"),
+        (this.curList.listItems[selectedListItemIndex].completed = true),
+        (this.listCollection[this._findObjectAlgo()] = this.curList))
+      : (listItem.classList.remove("completed"),
+        (this.curList.listItems[selectedListItemIndex].completed = false),
+        (this.listCollection[this._findObjectAlgo()] = this.curList));
+  }
 
   _createNewListItem(e) {
     e.preventDefault();

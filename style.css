@@ -10,7 +10,7 @@
   --red-theme: #a73958;
   --purple-theme: #ce89fc;
   --pink-theme: #ff8f8b;
-  --green-theme: #3cb371;
+  --green-theme: #3c62b3;
   --blue-theme: #00eaff;
   --bright-theme: #33ff86;
 
@@ -86,8 +86,6 @@ body {
 
 /* CONTAINER */
 .container {
-  /* height: 90vh;
-  width: 85%; */
   max-width: 100rem;
   height: 60rem;
   background-image: linear-gradient(
@@ -97,7 +95,7 @@ body {
   );
   filter: drop-shadow(0 0 0.8rem rgb(51, 50, 50));
   align-items: center;
-  margin: 6rem auto 1rem auto;
+  margin: 3rem auto 1rem auto;
   display: flex;
   border-radius: 20px;
   overflow: hidden;
@@ -160,7 +158,8 @@ body {
   border-left: none;
   box-shadow: 3px 3px 15px rgb(109, 109, 109);
   background-color: white;
-  transform: scale(1.04);
+  transition: transform ease 250ms;
+  transform: scale(1.07);
 }
 
 .list-previews :first-child {
@@ -369,6 +368,7 @@ body {
   flex: 8;
   overflow-y: scroll;
   align-items: center;
+  overflow-x: hidden;
 }
 
 /* List Items */
@@ -477,6 +477,13 @@ body {
 .item-info h2 {
   font-size: 2rem;
   margin: 0 1.5rem;
+}
+
+.full-list-item.deleting {
+  transition: all 700ms ease-out;
+  transform: translateX(50rem);
+  opacity: 0;
+  /* background-color: #683881; */
 }
 
 /* Expanded item */
