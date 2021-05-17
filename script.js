@@ -216,6 +216,8 @@ class App {
   listCollection = [fullList1, fullList2];
 
   constructor() {
+    // this._getLocalStorage();
+
     this._renderStorage();
     // this._showList();
 
@@ -284,6 +286,7 @@ class App {
         (item) => item.id !== itemID
       );
       this.listCollection[this._findObjectAlgo()] = this.curList;
+      this._setLocalStorage();
       console.log(this.listCollection);
 
       // Removing item from dom w/ animation
@@ -299,6 +302,7 @@ class App {
     // 2 - adds or subtracts to sortingOrder for sorting algo
     // 3 - sorting algo sorts listItems inside curList
     // 4 - sets sorted curlist in listCollection
+    // 5 - set local storage
     listItemCheck.checked
       ? (listItem.classList.add("completed"),
         (this.curList.listItems[selectedListItemIndex].completed = true),
@@ -619,6 +623,27 @@ class App {
     curListPreview.lastElementChild.innerHTML = this.curList.listTitle;
   }
 
+  // Local storage
+  _setLocalStorage() {
+    localStorage.setItem("listCollection", JSON.stringify(this.listCollection));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem("listCollection"));
+
+    if (!data) return;
+
+    this.listCollection = data;
+
+    this._renderStorage();
+  }
+
+  // Rendering lists stored in local storage on loadup
+  _renderStorage() {
+    this._messageChecker();
+    this.listCollection.forEach((list) => this._renderListPreviewMarkup(list));
+  }
+
   // Returns the index of the original object in the listCollection
   _findObjectAlgo() {
     const curListID = this.curList.id;
@@ -687,12 +712,6 @@ class App {
       }
     });
     console.log(`hello`);
-  }
-
-  // Rendering lists stored in local storage on loadup
-  _renderStorage() {
-    this._messageChecker();
-    this.listCollection.forEach((list) => this._renderListPreviewMarkup(list));
   }
 
   // Render list colour - colour line & colour picker button
