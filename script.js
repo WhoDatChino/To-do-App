@@ -141,11 +141,46 @@ class ListItem {
 
   constructor(title, dueDate, timeDue, description, priority) {
     this.itemTitle = title;
-    this.dueDate = dueDate;
+    this.dueDate = this._dateFormatter(dueDate);
     this.timeDue = timeDue;
     this.description = description;
     this.priority = priority;
     this.completed = false;
+    this.sortingOrder = this._sortOrder(this.priority);
+  }
+
+  _dateFormatter(date) {
+    if (date) {
+      const dateObj = new Date(date);
+      const day = dateObj.getDate();
+      const month = dateObj.getMonth();
+      const year = dateObj.getFullYear();
+
+      const monthArr = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      return `${day} ${monthArr[month]} ${year}`;
+    }
+    return "";
+  }
+
+  _sortOrder(pri) {
+    if (pri === "high_pri") return 1;
+    if (pri === "medium_pri") return 2;
+    if (pri === "low_pri") return 3;
+    if (pri === "no_pri") return 4;
   }
 }
 
@@ -260,13 +295,25 @@ class App {
     }
 
     // Completing an item - changes property on list item object and reflects that across listCollection
+    // 1 - sets completed property to true/false
+    // 2 - adds or subtracts to sortingOrder for sorting algo
+    // 3 - sorting algo sorts listItems inside curList
+    // 4 - sets sorted curlist in listCollection
     listItemCheck.checked
       ? (listItem.classList.add("completed"),
         (this.curList.listItems[selectedListItemIndex].completed = true),
-        (this.listCollection[this._findObjectAlgo()] = this.curList))
+        (this.curList.listItems[selectedListItemIndex].sortingOrder += 4),
+        (this.listCollection[this._findObjectAlgo()] = this.curList),
+        console.log(this.curList.listItems[selectedListItemIndex]))
       : (listItem.classList.remove("completed"),
         (this.curList.listItems[selectedListItemIndex].completed = false),
-        (this.listCollection[this._findObjectAlgo()] = this.curList));
+        (this.curList.listItems[selectedListItemIndex].sortingOrder -= 4),
+        (this.listCollection[this._findObjectAlgo()] = this.curList),
+        console.log(this.curList.listItems[selectedListItemIndex]));
+  }
+
+  _listItemsSorter() {
+    // Insertion sort
   }
 
   _createNewListItem(e) {
