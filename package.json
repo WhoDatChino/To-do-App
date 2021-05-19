@@ -1,0 +1,24 @@
+{
+  "name": "to-do-app",
+  "version": "1.0.0",
+  "description": "This is my first attempt at a solo project to hone my skills and dive in the deep end.",
+  "main": "script.js",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WhoDatChino/To-do-App.git"
+  },
+  "author": "Keano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WhoDatChino/To-do-App/issues"
+  },
+  "homepage": "https://github.com/WhoDatChino/To-do-App#readme",
+  "devDependencies": {
+    "cssnano": "^5.0.3",
+    "postcss": "^8.2.15"
+  }
+}

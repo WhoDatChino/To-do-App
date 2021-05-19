@@ -14,7 +14,17 @@ const successMessage = document.querySelector(".success-message");
 const listItemsParent = document.querySelector(".list-items");
 const activeClass = document.querySelector(".list-element, .active");
 const deleteListConfirmation = document.querySelector(".delete-list-message");
+const listColourContainer = document.querySelector(".list-colour-options");
 
+const listHeading = document.querySelector(".unique-heading");
+// Form values
+const itemNameInput = document.querySelector(".item-name");
+const itemDueDateInput = document.querySelector(".due-date");
+const itemTimeDueInput = document.querySelector(".time-due");
+const itemDescriptionInput = document.querySelector(".description");
+const itemPriorityInput = document.querySelector(".priority");
+
+// BUTTONS
 const newListBtn = document.querySelector(".new-list-btn");
 const colourPickerBtn = document.querySelector(".list-colour-btn");
 const cancelFormBtn = document.querySelector(".cancel-btn");
@@ -162,13 +172,13 @@ class App {
       );
       this.listCollection[this._findObjectAlgo()] = this.curList;
       this._setLocalStorage();
-      console.log(this.listCollection);
+      // console.log(this.listCollection);
 
       // Removing item from dom w/ animation
       listItemWrapper.classList.add("deleting");
       listItemWrapper.addEventListener("transitionend", function () {
         listItemWrapper.remove();
-        console.log(`hello`);
+        // console.log(`hello`);
       });
     }
 
@@ -546,7 +556,7 @@ class App {
     this.curList
       ? listViewExpanded.classList.remove("hidden")
       : this._hideList();
-    console.log(this.curList);
+    // console.log(this.curList);
   }
 
   _hideList() {
