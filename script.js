@@ -21,121 +21,7 @@ const cancelFormBtn = document.querySelector(".cancel-btn");
 const cancelListDelBtn = document.querySelector(".cancel-delete");
 const deleteListBtn = document.querySelector(".delete-btn");
 
-// OLD
-
-const listColourContainer = document.querySelector(".list-colour-options");
-
-const listHeading = document.querySelector(".unique-heading");
-
-// Form values
-const itemNameInput = document.querySelector(".item-name");
-const itemDueDateInput = document.querySelector(".due-date");
-const itemTimeDueInput = document.querySelector(".time-due");
-const itemDescriptionInput = document.querySelector(".description");
-const itemPriorityInput = document.querySelector(".priority");
-
 // ////// CODE
-
-const listItemData1 = {
-  id: 1111,
-  itemTitle: "Eat Apples",
-  priority: "high_pri",
-  description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi, sed quia neque esse maiores nam et id",
-  dueDate: "14 Mar 2021",
-  timeDue: "12.30pm",
-  completed: false,
-  sortingOrder: 1,
-};
-
-const listItemData2 = {
-  id: 2222,
-  itemTitle: "Eat Bread",
-  priority: "medium_pri",
-  description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi, sed quia neque esse maiores nam et id",
-  dueDate: "14 Mar 2021",
-  timeDue: "12.30pm",
-  completed: false,
-  sortingOrder: 2,
-};
-
-const listItemData3 = {
-  id: 3333,
-  itemTitle: "Eat Cake",
-  priority: "low_pri",
-  description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi, sed quia neque esse maiores nam et id",
-  dueDate: "14 Mar 2021",
-  timeDue: "12.30pm",
-  completed: false,
-  sortingOrder: 3,
-};
-
-const fullList1 = {
-  id: "123456781",
-  listTitle: "My first List",
-  colour: "var(--bright-theme)",
-  listItems: [listItemData1, listItemData2],
-};
-
-const fullList2 = {
-  id: "123456782",
-  listTitle: "My second List",
-  colour: "var(--blue-theme)",
-  listItems: [listItemData1, listItemData2, listItemData3],
-};
-
-const fullList3 = {
-  id: "123456783",
-  listTitle: "My third List",
-  colour: "var(--purple-theme)",
-  listItems: [listItemData1, listItemData2, listItemData3],
-};
-
-// LIST ITEM EVENTS
-// listItemsParent.addEventListener("click", function (e) {
-//   // console.log(e.target);
-//   const target = e.target;
-//   const listItemWrapper = target.closest(".full-list-item");
-//   const itemID = target.closest(".full-list-item").dataset.id;
-//   const extraInfoBtn = listItemWrapper.querySelector(".expand-item-btn");
-//   const extraInfoDiv = listItemWrapper.querySelector(".list-additional-info");
-//   const listItemCheck = listItemWrapper.querySelector(".check");
-//   const listItem = listItemWrapper.querySelector(".list-item");
-//   // console.log(itemID);
-//   // console.log(listItemWrapper);
-
-//   // Expanding and contracting additional info div
-//   if (target.classList[0] === "expand-item-btn") {
-//     extraInfoDiv.classList[1] === "expanded"
-//       ? (extraInfoDiv.classList.remove("expanded"),
-//         (extraInfoBtn.style.transform = "rotate(0deg)"))
-//       : (extraInfoDiv.classList.add("expanded"),
-//         (extraInfoBtn.style.transform = "rotate(180deg)"));
-//   }
-
-//   // Deleting list item
-//   if (target.classList[0] === "delete-item-btn") {
-//     listItemWrapper.remove();
-//   }
-
-//   // Completing an item
-//   listItemCheck.checked
-//     ? listItem.classList.add("completed")
-//     : listItem.classList.remove("completed");
-// });
-
-// LIST OPTIONS BUTTONS
-// listOptionsContainer.addEventListener("click", function (e) {
-//
-//   //   Delete List button
-//   if (button.classList.contains("delete-list-btn")) {
-//     toggleModal(deleteListConfirmation);
-//   }
-// });
-
-// ///////// FUNCTIONS
 
 // ///// CLASSES
 
@@ -198,16 +84,6 @@ class List {
   }
 }
 
-const q = {
-  id: 3333,
-  itemTitle: "Eat Cake",
-  priority: "low_pri",
-  description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nisi, sed quia neque esse maiores nam et id",
-  dueDate: "14 Mar 2021",
-  timeDue: "12.30pm",
-  completed: false,
-};
 // the 'new' keyword
 // - creates new empty object
 // - sets value of 'this' to new empty object. Use 'this' to set new properties to the instances
@@ -221,37 +97,40 @@ class App {
   constructor() {
     this._getLocalStorage();
 
-    // this._renderStorage();
-    // this._showList();
-
-    // EventLis on new list button
+    // NEW LIST
     newListBtn.addEventListener("click", this._addNewList.bind(this));
 
+    // EDIT TITLE
     listTitleParent.addEventListener(
       "click",
       this._editListTitleForm.bind(this)
     );
 
+    // CLICK ON LIST PREVIEW
     listPreviewsParent.addEventListener(
       "click",
       this._changeCurList.bind(this)
     );
 
+    // LIST INTERACTIONS
     listOptionsContainer.addEventListener(
       "click",
       this._listInteractions.bind(this)
     );
 
+    // NEW LIST ITEM FORM SUBMISSION
     form.addEventListener("submit", this._createNewListItem.bind(this));
 
+    // INTERACTION W/ LIST ITEMS
     listItemsParent.addEventListener(
       "click",
       this._itemInteractions.bind(this)
     );
   }
 
-  // //METHODS
+  // ////////METHODS
 
+  // INTERACTION W/ LIST ITEMS
   _itemInteractions(e) {
     const target = e.target;
     const itemID = +target.closest(".full-list-item").dataset.id;
@@ -265,13 +144,6 @@ class App {
     const extraInfoDiv = listItemWrapper.querySelector(".list-additional-info");
     const listItemCheck = listItemWrapper.querySelector(".check");
     const listItem = listItemWrapper.querySelector(".list-item");
-    // console.log(itemID);
-    // console.log(target);
-    // console.log(itemID);
-    // console.log(listItemWrapper);
-    // console.log(`sel`, selectedListItemIndex);
-    // console.log(`curList.items`, this.curList.listItems);
-    // console.log(`itemID`, itemID);
 
     // Expanding and contracting additional info div
     if (target.classList[0] === "expand-item-btn") {
@@ -302,8 +174,8 @@ class App {
 
     // Completing an item - changes property on list item object and reflects that across listCollection
     // 1 - sets completed property to true/false
-    // 4 - sets sorted curlist in listCollection
-    // 5 - set local storage
+    // 2 - sets sorted curlist in listCollection
+    // 3 - set local storage
     listItemCheck.checked
       ? (listItem.classList.add("completed"),
         (this.curList.listItems[selectedListItemIndex].completed = true),
@@ -325,8 +197,6 @@ class App {
     const description = itemDescriptionInput.value;
     const priority = itemPriorityInput.value;
 
-    // console.log(`duedate`);
-
     // Creating new listItem Obj
     const listItem = new ListItem(
       itemName,
@@ -336,33 +206,33 @@ class App {
       priority
     );
 
+    // Adding new list item to obj in listCollection
     this.listCollection[this._findObjectAlgo()].listItems.push(listItem);
+    // Altering the curList
     this.curList = this.listCollection[this._findObjectAlgo()];
-    console.log(`BEFORE`);
+
     this._insertionSort();
-    console.log(`AFTER`);
     this._setLocalStorage();
-    console.log(`listcoll`, this.listCollection);
 
     // Clears input fields
     this._clearForm();
 
+    // Reset listItemsParent and re-render sorted list items
     listItemsParent.innerHTML = "";
     this.curList.listItems.forEach((item) => this._renderListItem(item));
-    // this._update(this.curList.listItems, listItemsParent);
 
     // Shows and hides success message
     successMessage.classList.remove("hidden");
     setTimeout(function () {
       successMessage.classList.add("hidden");
     }, 750);
-
-    // console.log(listItem);
   }
 
+  // LIST INTERACTIONS
   _listInteractions(e) {
     const button = e.target.closest("button");
 
+    // Guard clause
     if (!button) return;
 
     //   List colour button
@@ -396,17 +266,16 @@ class App {
       );
 
       deleteListBtn.addEventListener("click", this._deleteList.bind(this));
-
-      console.log(button);
     }
   }
 
+  // DELETING A LIST
   _deleteList() {
-    // this._hideOverlayAndModal(deleteListConfirmation);
     const listToBeDeleted = listPreviewsParent.querySelector(
       `[data-listID = '${this.curList.id}']`
     );
 
+    // Guard clause
     if (this.listCollection.length === 0) return;
 
     // Add animation and transistion classes
@@ -414,6 +283,7 @@ class App {
     listToBeDeleted.classList.add("removing");
     this._hideList();
 
+    // Remove dom element after animation
     listToBeDeleted.addEventListener(
       "animationend",
       function () {
@@ -425,9 +295,6 @@ class App {
       }.bind(this)
     );
 
-    // listToBeDeleted.firstElementChild.style.width = `100%`;
-    // listToBeDeleted.lastElementChild.remove();
-
     // Create new list collection w/o deleted list
     this.listCollection = this.listCollection.filter(
       (list) => list.id !== this.curList.id
@@ -437,6 +304,7 @@ class App {
     this._setLocalStorage();
   }
 
+  // CLEARS INPUT FIELDS IN LIST ITEM FORM
   _clearForm() {
     // Clears input fields
     itemNameInput.value =
@@ -448,11 +316,12 @@ class App {
     itemPriorityInput.value = "no_pri";
   }
 
-  // Called when list colour btn pressed
+  // SHOWS COLOUR PICKER
   _changeListColourBTN() {
     listColourContainer.classList.toggle("hidden");
-    // overlay.style.opacity = 0;
   }
+
+  // SETS CHOSEN COLOUR ON OBJECT + RENDERS
   _changeListColourOptions(btn) {
     // colour code obtained from button dataset
     const buttonColour = btn.dataset.colour;
@@ -488,23 +357,23 @@ class App {
 
     let prevSelectedEle;
 
+    // Guard clause
     if (!targetID) return;
 
+    // Keeping track of prev curList if there was one
     if (this.curList !== 1)
       prevSelectedEle = listPreviewsParent.querySelector(
         `[data-listID = '${this.curList.id}']`
       );
 
+    // What happens when you click on a new list preview
     if (this.curList.id !== targetID) {
       // 1. Set curList to clicked element
       this.curList = this.listCollection.filter(
         (list) => list.id === targetID
       )[0];
 
-      listPreviewsParent
-        .querySelectorAll(".list-element")
-        .forEach((ele) => ele.classList.remove("active"));
-
+      // Removes active styling from prev curList
       if (prevSelectedEle) {
         prevSelectedEle.style.border = "none";
         prevSelectedEle.classList.remove("active");
@@ -521,28 +390,25 @@ class App {
       this._showList();
 
       // Render list title contents
-      this._renderListTitle(this.curList);
+      this._renderListTitle();
       this._renderListColour();
 
       // Clering any prev list contents
       listItemsParent.innerHTML = "";
 
       //  Rendering curList list contents
-      if (this.listCollection[this._findObjectAlgo()].listItems.length > 0) {
-        this.listCollection[this._findObjectAlgo()].listItems.forEach((item) =>
-          this._renderListItem(item)
-        );
+      if (this.curList.listItems.length > 0) {
+        this.curList.listItems.forEach((item) => this._renderListItem(item));
       }
 
+      // Clicking preview if it is already the active list
       if (targetID === this.curList.id) {
         return;
       }
     }
   }
 
-  _returnSelectedPreview(data) {}
-
-  // Creating new list
+  // CREATING NEW LIST
   _addNewList(e) {
     let prevSelectedEle;
 
@@ -554,14 +420,8 @@ class App {
       prevSelectedEle.classList.remove("active");
       prevSelectedEle.style.border = "none";
     }
-    // 1. Create new List object
-    // 2. Show Right screen if hidden
-    //  2.1 Render title
-    // 3. Render preview
-    // 4. CurList = new List object created
 
     this._showList();
-    // console.log(e.target);
 
     // Creating default list object & send to ListCollection
     let newList = new List();
@@ -576,23 +436,23 @@ class App {
     this._messageChecker();
     this._renderListPreviewMarkup(newList);
 
+    // Making newList the active list
     let selectedEle = listPreviewsParent.querySelector(
       `[data-listID = '${newList.id}']`
     );
-    console.log(selectedEle);
     selectedEle.classList.add("active");
+
     // Render list title contents
-    this._renderListTitle(this.curList);
+    this._renderListTitle();
 
     // Render w/ correct styling
     this._renderListColour();
 
+    // Removing anything in listItemsParent
     listItemsParent.innerHTML = "";
-    // console.log(`curList:`, newList);
-    // console.log(`LC`, this.listCollection);
   }
 
-  // Hiding and showing title form
+  // EDIT LIST TITLE
   _editListTitleForm(e) {
     e.preventDefault();
     const target = e.target;
@@ -626,16 +486,13 @@ class App {
     this._setLocalStorage();
 
     // Re-render List title & part of preview
-    this._renderListTitle(this.curList);
+    this._renderListTitle();
     curListPreview.lastElementChild.innerHTML = this.curList.listTitle;
   }
 
-  // Insertion sort algo
+  // INSERTION SORT ALGO FOR LIST ITEM PRIORITIES
   _insertionSort() {
     let arr = this.curList.listItems;
-
-    console.log(`sorterSORTER1`);
-    // if (arr.length === 1) return;
 
     for (let i = 1; i < arr.length; i++) {
       let tempObj = arr[i];
@@ -648,12 +505,12 @@ class App {
       }
       arr[j + 1] = tempObj;
     }
-    console.log(`sorterSORTER2`);
 
+    // Set sorted listItems arr to curList & alter curList in listCollection
     this.curList.listItems = arr;
     this.listCollection[this._findObjectAlgo()] = this.curList;
+
     this._setLocalStorage();
-    console.log(`listItems sorted`, this.curList.listItems);
   }
 
   // Local storage
@@ -682,8 +539,6 @@ class App {
     const curListID = this.curList.id;
 
     return this.listCollection.findIndex((obj) => obj.id === curListID);
-
-    // console.log(foundID);
   }
 
   // Hiding and showing right hand side list.
@@ -706,7 +561,7 @@ class App {
     // console.log(`heelo`);
   }
 
-  // RENDERS
+  // /////RENDERS
 
   // Render list colour - colour line & colour picker button
   _renderListColour() {
@@ -731,9 +586,9 @@ class App {
     ).style.backgroundColor = `${list.colour}`;
   }
 
-  _renderListTitle(curList) {
+  _renderListTitle() {
     // Render title
-    listTitleParent.innerHTML = this._generateListTitleMarkup(curList);
+    listTitleParent.innerHTML = this._generateListTitleMarkup(this.curList);
   }
 
   // MARKUPS
@@ -825,25 +680,3 @@ class App {
 }
 
 const a = new App();
-
-// function insertionSort(arr) {
-//   for (let i = 1; i < arr.length; i++) {
-//     let temp = arr[i];
-//     let leftPos = i - 1;
-
-//     while (leftPos >= 0 && temp < arr[leftPos]) {
-//       arr[leftPos + 1] = arr[leftPos];
-//       leftPos--;
-//     }
-//     arr[leftPos + 1] = temp;
-//   }
-//   console.log(arr);
-// }
-
-// const arr1 = [4, 1];
-// const arr2 = [4, 1, 3];
-// const arr3 = [4, 1, 2, 2];
-
-// // insertionSort(arr1);
-// // insertionSort(arr2);
-// insertionSort(arr3);
