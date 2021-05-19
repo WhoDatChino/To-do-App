@@ -45,6 +45,7 @@ const listItemData1 = {
   dueDate: "14 Mar 2021",
   timeDue: "12.30pm",
   completed: false,
+  sortingOrder: 1,
 };
 
 const listItemData2 = {
@@ -56,6 +57,7 @@ const listItemData2 = {
   dueDate: "14 Mar 2021",
   timeDue: "12.30pm",
   completed: false,
+  sortingOrder: 2,
 };
 
 const listItemData3 = {
@@ -67,6 +69,7 @@ const listItemData3 = {
   dueDate: "14 Mar 2021",
   timeDue: "12.30pm",
   completed: false,
+  sortingOrder: 3,
 };
 
 const fullList1 = {
@@ -213,12 +216,12 @@ const q = {
 class App {
   curList = 1;
   listInLC;
-  listCollection = [fullList1, fullList2];
+  listCollection = [];
 
   constructor() {
-    // this._getLocalStorage();
+    this._getLocalStorage();
 
-    this._renderStorage();
+    // this._renderStorage();
     // this._showList();
 
     // EventLis on new list button
@@ -299,27 +302,20 @@ class App {
 
     // Completing an item - changes property on list item object and reflects that across listCollection
     // 1 - sets completed property to true/false
-    // 2 - adds or subtracts to sortingOrder for sorting algo
-    // 3 - sorting algo sorts listItems inside curList
     // 4 - sets sorted curlist in listCollection
     // 5 - set local storage
     listItemCheck.checked
       ? (listItem.classList.add("completed"),
         (this.curList.listItems[selectedListItemIndex].completed = true),
-        (this.curList.listItems[selectedListItemIndex].sortingOrder += 4),
         (this.listCollection[this._findObjectAlgo()] = this.curList),
-        console.log(this.curList.listItems[selectedListItemIndex]))
+        this._setLocalStorage())
       : (listItem.classList.remove("completed"),
         (this.curList.listItems[selectedListItemIndex].completed = false),
-        (this.curList.listItems[selectedListItemIndex].sortingOrder -= 4),
         (this.listCollection[this._findObjectAlgo()] = this.curList),
-        console.log(this.curList.listItems[selectedListItemIndex]));
+        this._setLocalStorage());
   }
 
-  _listItemsSorter() {
-    // Insertion sort
-  }
-
+  // CREATE NEW LIST ITEM
   _createNewListItem(e) {
     e.preventDefault();
 
@@ -329,7 +325,7 @@ class App {
     const description = itemDescriptionInput.value;
     const priority = itemPriorityInput.value;
 
-    console.log(`duedate`);
+    // console.log(`duedate`);
 
     // Creating new listItem Obj
     const listItem = new ListItem(
@@ -341,12 +337,19 @@ class App {
     );
 
     this.listCollection[this._findObjectAlgo()].listItems.push(listItem);
+    this.curList = this.listCollection[this._findObjectAlgo()];
+    console.log(`BEFORE`);
+    this._insertionSort();
+    console.log(`AFTER`);
+    this._setLocalStorage();
     console.log(`listcoll`, this.listCollection);
 
     // Clears input fields
     this._clearForm();
 
-    this._renderListItem(listItem);
+    listItemsParent.innerHTML = "";
+    this.curList.listItems.forEach((item) => this._renderListItem(item));
+    // this._update(this.curList.listItems, listItemsParent);
 
     // Shows and hides success message
     successMessage.classList.remove("hidden");
@@ -354,7 +357,7 @@ class App {
       successMessage.classList.add("hidden");
     }, 750);
 
-    console.log(listItem);
+    // console.log(listItem);
   }
 
   _listInteractions(e) {
@@ -431,6 +434,7 @@ class App {
     );
 
     this.curList = 1;
+    this._setLocalStorage();
   }
 
   _clearForm() {
@@ -456,6 +460,7 @@ class App {
     // Mutating object in LC & changing curList obj
     this.listCollection[this._findObjectAlgo()].colour = buttonColour;
     this.curList = this.listCollection[this._findObjectAlgo()];
+    this._setLocalStorage();
 
     // Selecting corresponding list preview element's colour line & setting colour
     const curListPreview = listPreviewsParent.querySelector(
@@ -530,7 +535,6 @@ class App {
       }
 
       if (targetID === this.curList.id) {
-        // curElement.style.border = `${this.curList.colour} 2px solid`;
         return;
       }
     }
@@ -566,6 +570,8 @@ class App {
     // Setting current List to created list
     this.curList = newList;
 
+    this._setLocalStorage();
+
     // Removing message and rendering list preview
     this._messageChecker();
     this._renderListPreviewMarkup(newList);
@@ -582,8 +588,8 @@ class App {
     this._renderListColour();
 
     listItemsParent.innerHTML = "";
-    console.log(`curList:`, newList);
-    console.log(`LC`, this.listCollection);
+    // console.log(`curList:`, newList);
+    // console.log(`LC`, this.listCollection);
   }
 
   // Hiding and showing title form
@@ -591,7 +597,6 @@ class App {
     e.preventDefault();
     const target = e.target;
     const curListID = this.curList.id;
-    // console.log(target);
     const noForm = document.querySelector(".no-form");
     const form = document.querySelector(".form");
     const newHeadingInput = document.querySelector(".input-list-title");
@@ -618,9 +623,37 @@ class App {
     // Updating curList w/ newly edited object
     this.curList = this.listCollection[this._findObjectAlgo()];
 
+    this._setLocalStorage();
+
     // Re-render List title & part of preview
     this._renderListTitle(this.curList);
     curListPreview.lastElementChild.innerHTML = this.curList.listTitle;
+  }
+
+  // Insertion sort algo
+  _insertionSort() {
+    let arr = this.curList.listItems;
+
+    console.log(`sorterSORTER1`);
+    // if (arr.length === 1) return;
+
+    for (let i = 1; i < arr.length; i++) {
+      let tempObj = arr[i];
+      let tempValue = arr[i].sortingOrder;
+      let j = i - 1;
+
+      while (j >= 0 && tempValue < arr[j].sortingOrder) {
+        arr[j + 1] = arr[j];
+        j--;
+      }
+      arr[j + 1] = tempObj;
+    }
+    console.log(`sorterSORTER2`);
+
+    this.curList.listItems = arr;
+    this.listCollection[this._findObjectAlgo()] = this.curList;
+    this._setLocalStorage();
+    console.log(`listItems sorted`, this.curList.listItems);
   }
 
   // Local storage
@@ -653,12 +686,6 @@ class App {
     // console.log(foundID);
   }
 
-  // Adding active class to list preview
-  // _addActiveClass() {
-  //   if (listPreviewsParent.childNodes.contains("active"))
-  //     console.log(`children`);
-  // }
-
   // Hiding and showing right hand side list.
   _showList() {
     this.curList
@@ -681,39 +708,6 @@ class App {
 
   // RENDERS
 
-  // React - like update algo
-  update(data, parentEl) {
-    // this._data = data;
-
-    const newMarkup = this._generateListPreviewMarkup(data);
-    const newDOM = document.createRange().createContextualFragment(newMarkup);
-    const newElements = Array.from(newDOM.querySelectorAll("*"));
-
-    const curElements = Array.from(parentEl.querySelectorAll("*"));
-
-    console.log(`new`, newElements);
-    console.log(`cur`, curElements);
-    // Looping over both arrays at the same time
-    newElements.forEach((newEl, i) => {
-      const curEl = curElements[i];
-
-      // Updates changed TEXT
-      if (
-        !newEl.isEqualNode(curEl) &&
-        newEl.firstChild?.nodeValue.trim() !== ""
-      ) {
-        curEl.textContent = newEl.textContent;
-      }
-
-      if (!newEl.isEqualNode(curEl)) {
-        Array.from(newEl.attributes).forEach((attr) =>
-          curEl.setAttribute(attr.name, attr.value)
-        );
-      }
-    });
-    console.log(`hello`);
-  }
-
   // Render list colour - colour line & colour picker button
   _renderListColour() {
     listColour.style.backgroundColor = this.curList.colour;
@@ -723,7 +717,7 @@ class App {
   _renderListItem(listItem) {
     const html = this._generateListItemMarkup(listItem);
 
-    listItemsParent.insertAdjacentHTML("afterbegin", html);
+    listItemsParent.insertAdjacentHTML("beforeend", html);
   }
 
   // Rendering list preview
@@ -756,12 +750,16 @@ class App {
     let html = `
       <div class="full-list-item" data-id=${data.id}>
   
-        <div class="list-item ${data.priority}">
+        <div class="list-item ${data.priority} ${
+      data.completed ? "completed" : ""
+    }">
   
           <div class="item-info">
-              <input type="checkbox"  name="" class="check">
+              <input type="checkbox" ${
+                data.completed ? "checked" : ""
+              } name="" class="check">
               <label for="checkbox" class="checkmark"></label>
-              <h2>${data.itemTitle} ID: ${data.id}</h2>
+              <h2>${data.itemTitle}</h2>
           </div>
   
           <div class="item-interactions">
@@ -827,3 +825,25 @@ class App {
 }
 
 const a = new App();
+
+// function insertionSort(arr) {
+//   for (let i = 1; i < arr.length; i++) {
+//     let temp = arr[i];
+//     let leftPos = i - 1;
+
+//     while (leftPos >= 0 && temp < arr[leftPos]) {
+//       arr[leftPos + 1] = arr[leftPos];
+//       leftPos--;
+//     }
+//     arr[leftPos + 1] = temp;
+//   }
+//   console.log(arr);
+// }
+
+// const arr1 = [4, 1];
+// const arr2 = [4, 1, 3];
+// const arr3 = [4, 1, 2, 2];
+
+// // insertionSort(arr1);
+// // insertionSort(arr2);
+// insertionSort(arr3);
